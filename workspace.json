@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "projects": {
+    "api": "apps/api",
+    "child": "libs/child",
+    "cli": "apps/cli",
+    "collections": "libs/collections",
+    "paths": "libs/paths",
+    "web": "apps/web"
+  }
+}
