@@ -14,9 +14,11 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/js:node",
+      "executor": "@nrwl/node:execute",
       "options": {
-        "buildTarget": "cli:build"
+        "buildTarget": "cli:build",
+        "runtimeArgs": ["-r", "tsconfig-paths/register"],
+        "inspect": false
       }
     },
     "lint": {
