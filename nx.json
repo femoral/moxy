@@ -45,5 +45,5 @@
       }
     }
   },
-  "defaultProject": "web"
+  "defaultProject": "cli"
 }

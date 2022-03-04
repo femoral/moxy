@@ -16,9 +16,11 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
+      "@moxy/api": ["libs/api/src"],
       "@moxy/child": ["libs/child/src"],
       "@moxy/collections": ["libs/collections/src"],
-      "@moxy/paths": ["libs/paths/src"]
+      "@moxy/paths": ["libs/paths/src"],
+      "@moxy/web": ["libs/web"]
     }
   },
   "exclude": ["node_modules", "tmp"]
