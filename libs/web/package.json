@@ -1,5 +1,9 @@
 {
   "name": "@moxy/web",
   "version": "0.0.1",
-  "license": "MIT"
+  "license": "LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/femoral/moxy.git"
+  }
 }
