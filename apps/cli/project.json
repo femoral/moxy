@@ -2,6 +2,7 @@
   "root": "apps/cli",
   "sourceRoot": "apps/cli/src",
   "projectType": "application",
+  "implicitDependencies": ["web"],
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
@@ -19,7 +20,13 @@
         "buildTarget": "cli:build",
         "runtimeArgs": ["-r", "tsconfig-paths/register"],
         "inspect": false
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
