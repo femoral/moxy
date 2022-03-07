@@ -1,11 +1,17 @@
 {
   "name": "moxy",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/femoral/moxy.git"
+  },
   "scripts": {
     "cli": "nx build api && nx serve cli",
     "dev": "nx run-many --target=dev --projects=web,api",
     "build": "nx build",
+    "postbuild": "nx postbuild web && npm run license",
+    "license": "ls -1a dist/**/package.json | sed s/package\\.json//g | while read package; do npx cpy LICENSE $package; done",
     "test": "nx test"
   },
   "private": true,
@@ -68,7 +74,6 @@
     "axios": "^0.21.1",
     "babel-jest": "27.2.3",
     "cpy-cli": "^4.0.0",
-    "cypress": "^9.1.0",
     "eslint": "~8.7.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-cypress": "^2.10.3",
