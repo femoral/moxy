@@ -1,6 +1,6 @@
 import { Button, Drawer, Form, List, PageHeader, Upload } from 'antd';
 import CollectionCard from '../component/CollectionCard';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   CollectionContext,
   ICollectionContext,
@@ -8,6 +8,8 @@ import {
 import CollectionEditor from '../container/CollectionEditor';
 import { FolderAddOutlined, UploadOutlined } from '@ant-design/icons';
 import { RcFile } from 'antd/lib/upload';
+import { SearchComponent } from '../component/Search/SearchComponent';
+import { CollectionViewModel } from '../context/model/CollectionViewModel';
 
 const CollectionsRoute = () => {
   const {
@@ -19,11 +21,23 @@ const CollectionsRoute = () => {
     selectedCollection,
   } = useContext<ICollectionContext>(CollectionContext);
   const [collectionEditorForm] = Form.useForm();
+  const [searchCollection, setSearchCollection] = useState<string>('');
+  const [collectionsFound, setCollectionsFound] = useState<
+    CollectionViewModel[]
+  >([]);
 
   const beforeUpload = (file: RcFile) => {
     file.text().then(JSON.parse).then(importCollection);
     return false;
   };
+
+  useEffect(() => {
+    setCollectionsFound(
+      collections.filter((collection: CollectionViewModel) =>
+        collection.name.includes(searchCollection)
+      )
+    );
+  }, [collections, searchCollection]);
 
   return (
     <>
@@ -46,11 +60,15 @@ const CollectionsRoute = () => {
           >
             Add Collection
           </Button>,
+          <SearchComponent
+            onChange={setSearchCollection}
+            placeholder="Search collection"
+          />,
         ]}
       />
       <List
         grid={{ gutter: 16, column: 4 }}
-        dataSource={collections}
+        dataSource={collectionsFound}
         renderItem={(item) => (
           <List.Item>
             <CollectionCard {...item} />
