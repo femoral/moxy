@@ -8,6 +8,7 @@ import {
 import CollectionEditor from '../container/CollectionEditor';
 import { FolderAddOutlined, UploadOutlined } from '@ant-design/icons';
 import { RcFile } from 'antd/lib/upload';
+import { SearchComponent } from '../component/Search/SearchComponent';
 
 const CollectionsRoute = () => {
   const {
@@ -46,6 +47,7 @@ const CollectionsRoute = () => {
           >
             Add Collection
           </Button>,
+          <SearchComponent />,
         ]}
       />
       <List
