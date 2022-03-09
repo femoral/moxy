@@ -2,15 +2,16 @@ import React from 'react';
 import { Input } from 'antd';
 
 export const SearchComponent = () => {
-  const { Search } = Input;
+  const onChange = (collectionName: string) => {
+    console.log(collectionName);
+  };
 
   return (
-    <Search
-      style={{ width: '50%' }}
+    <Input
+      style={{ width: '40%' }}
       placeholder="Search for collection"
-      enterButton="Search"
       size="middle"
-      maxLength={1}
+      onChange={(event) => onChange(event.target.value)}
     />
   );
 };
