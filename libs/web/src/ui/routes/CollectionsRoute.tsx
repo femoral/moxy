@@ -22,8 +22,9 @@ const CollectionsRoute = () => {
   } = useContext<ICollectionContext>(CollectionContext);
   const [collectionEditorForm] = Form.useForm();
   const [searchCollection, setSearchCollection] = useState<string>('');
-  const [collectionsFound, setCollectionsFound] =
-    useState<CollectionViewModel[]>(collections);
+  const [collectionsFound, setCollectionsFound] = useState<
+    CollectionViewModel[]
+  >([]);
 
   const beforeUpload = (file: RcFile) => {
     file.text().then(JSON.parse).then(importCollection);

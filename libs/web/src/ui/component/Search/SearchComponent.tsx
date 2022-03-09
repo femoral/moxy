@@ -6,7 +6,7 @@ export const SearchComponent = ({
   placeholder,
 }: SearchComponentProps) => {
   const search = (name: string) => {
-    onChange(name);
+    onChange(name.trim());
   };
 
   return (
