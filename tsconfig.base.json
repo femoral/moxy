@@ -16,11 +16,11 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@moxy/api": ["libs/api/src"],
-      "@moxy/child": ["libs/child/src"],
-      "@moxy/collections": ["libs/collections/src"],
-      "@moxy/paths": ["libs/paths/src"],
-      "@moxy/web": ["libs/web"]
+      "@moxy-js/api": ["libs/api/src"],
+      "@moxy-js/child": ["libs/child/src"],
+      "@moxy-js/collections": ["libs/collections/src"],
+      "@moxy-js/paths": ["libs/paths/src"],
+      "@moxy-js/web": ["libs/web"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express';
-import { DeletePathUseCase } from '@moxy/collections';
+import { DeletePathUseCase } from '@moxy-js/collections';
 import { validateUuid } from '../../common/validator';
 
 export const makeDeletePathController =

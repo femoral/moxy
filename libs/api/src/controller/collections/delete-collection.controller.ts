@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express';
-import { DeleteCollectionUseCase } from '@moxy/collections';
+import { DeleteCollectionUseCase } from '@moxy-js/collections';
 import { validateUuid } from '../../common/validator';
 
 export const makeDeleteCollectionController =

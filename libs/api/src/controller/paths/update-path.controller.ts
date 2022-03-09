@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express';
-import { UpdatePathUseCase } from '@moxy/collections';
+import { UpdatePathUseCase } from '@moxy-js/collections';
 import * as pathDtoToPathMapper from '../mapper/path-dto.to.path.mapper';
 import { validateUuid } from '../../common/validator';
 

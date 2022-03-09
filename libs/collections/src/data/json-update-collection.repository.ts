@@ -1,8 +1,8 @@
 import { UpdateCollection } from "../repository/collection.repository";
 import { Collection } from "../collection";
 import { CollectionModel, PathMap } from "./model/collection.model";
-import { Path } from "@moxy/paths";
-import { pathMapper } from "@moxy/paths";
+import { Path } from "@moxy-js/paths";
+import { pathMapper } from "@moxy-js/paths";
 import { promises as fs } from "fs";
 import path from "path";
 

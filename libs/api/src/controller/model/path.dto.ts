@@ -1,4 +1,4 @@
-import { PathMethod } from '@moxy/paths';
+import { PathMethod } from '@moxy-js/paths';
 
 export interface PathDto {
   id?: string;

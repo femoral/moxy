@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { ChildController } from '@moxy/child';
+import { ChildController } from '@moxy-js/child';
 
 export const makeRestartMiddleware =
   (childController: ChildController) =>

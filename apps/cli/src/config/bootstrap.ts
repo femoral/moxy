@@ -5,7 +5,7 @@ import { configureLocalStorage } from "./configure-local-storage";
 import { makeUploadChanges } from "../git";
 
 import args from "./args";
-import moxy from "@moxy/api";
+import moxy from "@moxy-js/api";
 
 const {
   childPort,

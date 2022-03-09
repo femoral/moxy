@@ -1,4 +1,4 @@
-import { Path } from "@moxy/paths";
+import { Path } from "@moxy-js/paths";
 import { Collection } from "./collection";
 
 export type AddPathUseCase = { execute: (path: Path) => Promise<string> };
