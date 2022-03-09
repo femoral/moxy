@@ -4,7 +4,7 @@ import {
   makeGetCollectionsUseCase,
   makeJsonGetCollectionRepository,
   makeJsonGetCollectionsRepository
-} from "@moxy/collections";
+} from "@moxy-js/collections";
 import {join} from "path";
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";

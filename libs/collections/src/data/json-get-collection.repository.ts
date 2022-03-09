@@ -3,9 +3,9 @@ import { Collection } from "../collection";
 import path from "path";
 import { CollectionModel } from "./model/collection.model";
 import { promises as fs } from "fs";
-import { MockModel, ProxyModel } from "@moxy/paths";
-import { ProxyPath } from "@moxy/paths";
-import { MockPath } from "@moxy/paths";
+import { MockModel, ProxyModel } from "@moxy-js/paths";
+import { ProxyPath } from "@moxy-js/paths";
+import { MockPath } from "@moxy-js/paths";
 
 const makeJsonGetCollectionRepository = ({
   collectionsBasePath,

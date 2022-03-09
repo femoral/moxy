@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express';
-import { CreateCollectionUseCase } from '@moxy/collections';
+import { CreateCollectionUseCase } from '@moxy-js/collections';
 import * as collectionMapper from '../mapper/collection-dto.to.collection.mapper';
 import { CollectionDto } from '../model/collection.dto';
 

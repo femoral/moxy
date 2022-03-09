@@ -82,7 +82,7 @@ spec:
                   if(params.DRY_RUN == true) {
                     sh "ls -1a ${WORKSPACE}/dist/*/*/package.json | sed s/package\\.json//g | while read package; do cd \$package; npm version --no-git-tag-version \$(cat ${WORKSPACE}/version); npm publish --dry-run; done"
                   } else {
-                    sh "ls -1a ${WORKSPACE}/dist/*/*/package.json | sed s/package\\.json//g | while read package; do cd \$package; npm version --no-git-tag-version \$(cat ${WORKSPACE}/version); npm publish; done"
+                    sh "ls -1a ${WORKSPACE}/dist/*/*/package.json | sed s/package\\.json//g | while read package; do cd \$package; npm version --no-git-tag-version \$(cat ${WORKSPACE}/version); npm publish --access public; done"
                   }
                 }
               }

@@ -37,7 +37,7 @@ const makeUploadChanges = async ({ remote, key, collectionsPath }: any) => {
     console.log(`git: writing local config`);
     await git
       .addConfig('user.name', 'moxyd')
-      .addConfig('user.email', 'moxyd@moxyd.org')
+      .addConfig('user.email', 'moxyd@moxy-jsd.org')
       .addConfig('core.sshCommand', sshCommand);
   };
 

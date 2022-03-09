@@ -1,5 +1,5 @@
 import { CollectionDto } from '../model/collection.dto';
-import { Collection } from '@moxy/collections';
+import { Collection } from '@moxy-js/collections';
 import * as pathMapper from './path-dto.to.path.mapper';
 
 export function map(collectionDto: CollectionDto): Collection {

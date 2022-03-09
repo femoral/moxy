@@ -1,4 +1,4 @@
-import { Path } from "@moxy/paths";
+import { Path } from "@moxy-js/paths";
 import {
   GetCollection,
   UpdateCollection,

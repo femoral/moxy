@@ -1,5 +1,5 @@
 import { MockDto, PathDto, ProxyDto } from '../model/path.dto';
-import { MockPath, Path, ProxyPath } from '@moxy/paths';
+import { MockPath, Path, ProxyPath } from '@moxy-js/paths';
 
 export function map(path: PathDto): Path {
   switch (path.type) {

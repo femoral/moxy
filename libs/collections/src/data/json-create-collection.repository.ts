@@ -1,8 +1,8 @@
 import { Collection } from "../collection";
 import path from "path";
 import { CollectionModel, PathMap } from "./model/collection.model";
-import { Path } from "@moxy/paths";
-import { pathMapper } from "@moxy/paths";
+import { Path } from "@moxy-js/paths";
+import { pathMapper } from "@moxy-js/paths";
 import { existsSync } from "graceful-fs";
 import { promises as fs } from "fs";
 import { CreateCollection } from "../repository/collection.repository";

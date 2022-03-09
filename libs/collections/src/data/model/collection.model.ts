@@ -1,4 +1,4 @@
-import { PathModel } from "@moxy/paths";
+import { PathModel } from "@moxy-js/paths";
 
 export interface CollectionModel {
   id: string;
