@@ -33,9 +33,16 @@ const CollectionsRoute = () => {
 
   useEffect(() => {
     setCollectionsFound(
-      collections.filter((collection: CollectionViewModel) =>
-        collection.name.includes(searchCollection)
-      )
+      collections
+        .filter((collection: CollectionViewModel) =>
+          collection.name.includes(searchCollection)
+        )
+        .sort(
+          (
+            currentCollection: CollectionViewModel,
+            nextCollection: CollectionViewModel
+          ) => currentCollection.name.localeCompare(nextCollection.name)
+        )
     );
   }, [collections, searchCollection]);
 
