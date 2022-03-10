@@ -4,5 +4,8 @@
   "type": "commonjs",
   "bin": {
     "moxy": "bin/moxy-js"
+  },
+  "dependencies": {
+    "@moxy-js/web": "moxy-js-version"
   }
 }

@@ -66,8 +66,10 @@ spec:
         stage('Build') {
           steps {
             container('nodejs') {
+                sh "find ${WORKSPACE}/apps ${WORKSPACE}/libs -name package.json | sed s/package\\.json//g | while read package; do cd \$package; npm version --no-git-tag-version \$(cat ${WORKSPACE}/version); done"
                 sh "pnpm build"
                 sh "cp libs/web/package.json dist/libs/web"
+                sh "sed -i s/moxy-js-version/\$(cat ${WORKSPACE}/version)/g dist/apps/cli/package.json"
                 sh "ls -1a dist/*/*/package.json | sed s/package\\.json//g | while read package; do cp LICENSE \$package; done"
             }
           }
@@ -80,9 +82,9 @@ spec:
                 sh "npm config set '//registry.npmjs.org/:_authToken' \"\${NPM_TOKEN}\""
                 script {
                   if(params.DRY_RUN == true) {
-                    sh "ls -1a ${WORKSPACE}/dist/*/*/package.json | sed s/package\\.json//g | while read package; do cd \$package; npm version --no-git-tag-version \$(cat ${WORKSPACE}/version); npm publish --dry-run; done"
+                    sh "ls -1a ${WORKSPACE}/dist/*/*/package.json | sed s/package\\.json//g | while read package; do cd \$package; npm publish --dry-run; done"
                   } else {
-                    sh "ls -1a ${WORKSPACE}/dist/*/*/package.json | sed s/package\\.json//g | while read package; do cd \$package; npm version --no-git-tag-version \$(cat ${WORKSPACE}/version); npm publish --access public; done"
+                    sh "ls -1a ${WORKSPACE}/dist/*/*/package.json | sed s/package\\.json//g | while read package; do cd \$package; npm publish --access public; done"
                   }
                 }
               }
