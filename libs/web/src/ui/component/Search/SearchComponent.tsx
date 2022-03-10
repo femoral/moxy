@@ -1,25 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input } from 'antd';
 
-export const SearchComponent = ({
+export const SearchComponent = <T,>({
+  itemsSource,
   onChange,
   placeholder,
-}: SearchComponentProps) => {
-  const search = (name: string) => {
-    onChange(name.trim());
-  };
+  filterBy,
+  size,
+}: SearchComponentProps<T>) => {
+  const [searchItem, setSearchItem] = useState<string>('');
+
+  useEffect(() => {
+    onChange(
+      itemsSource.filter((item: T) => {
+        const itemParsed = JSON.parse(JSON.stringify(item));
+        return itemParsed[filterBy].includes(searchItem) ? item : '';
+      })
+    );
+  }, [filterBy, itemsSource, onChange, searchItem]);
 
   return (
     <Input
       style={{ width: '40%' }}
       placeholder={placeholder}
-      size="middle"
-      onChange={(event) => search(event.target.value)}
+      size={size}
+      onChange={(event) => setSearchItem(event.target.value)}
     />
   );
 };
 
-interface SearchComponentProps {
+declare type SizeType = 'small' | 'middle' | 'large';
+
+interface SearchComponentProps<T> {
   placeholder: string;
-  onChange: (name: string) => void;
+  itemsSource: T[];
+  onChange: (value: T[]) => void;
+  filterBy: string;
+  size: SizeType;
 }
