@@ -10,7 +10,8 @@
         "outputPath": "dist/libs/collections",
         "main": "libs/collections/src/index.ts",
         "tsConfig": "libs/collections/tsconfig.lib.json",
-        "assets": ["libs/collections/*.md"]
+        "assets": ["libs/collections/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       },
       "dependsOn": [
         {

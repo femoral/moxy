@@ -14,7 +14,8 @@
         "assets": [
           "apps/cli/*.md",
           "apps/cli/bin/*"
-        ]
+        ],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "serve": {
