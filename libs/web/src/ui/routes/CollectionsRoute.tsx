@@ -1,6 +1,6 @@
 import { Button, Drawer, Form, List, PageHeader, Upload } from 'antd';
 import CollectionCard from '../component/CollectionCard';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   CollectionContext,
   ICollectionContext,
@@ -21,30 +21,13 @@ const CollectionsRoute = () => {
     selectedCollection,
   } = useContext<ICollectionContext>(CollectionContext);
   const [collectionEditorForm] = Form.useForm();
-  const [searchCollection, setSearchCollection] = useState<string>('');
-  const [collectionsFound, setCollectionsFound] = useState<
-    CollectionViewModel[]
-  >([]);
+  const [collectionsFound, setCollectionsFound] =
+    useState<CollectionViewModel[]>(collections);
 
   const beforeUpload = (file: RcFile) => {
     file.text().then(JSON.parse).then(importCollection);
     return false;
   };
-
-  useEffect(() => {
-    setCollectionsFound(
-      collections
-        .filter((collection: CollectionViewModel) =>
-          collection.name.includes(searchCollection)
-        )
-        .sort(
-          (
-            currentCollection: CollectionViewModel,
-            nextCollection: CollectionViewModel
-          ) => currentCollection.name.localeCompare(nextCollection.name)
-        )
-    );
-  }, [collections, searchCollection]);
 
   return (
     <>
@@ -68,14 +51,22 @@ const CollectionsRoute = () => {
             Add Collection
           </Button>,
           <SearchComponent
-            onChange={setSearchCollection}
+            itemsSource={collections}
+            onChange={setCollectionsFound}
             placeholder="Search collection"
+            filterBy="name"
+            size="middle"
           />,
         ]}
       />
       <List
         grid={{ gutter: 16, column: 4 }}
-        dataSource={collectionsFound}
+        dataSource={[...collectionsFound].sort(
+          (
+            currentCollection: CollectionViewModel,
+            nextCollection: CollectionViewModel
+          ) => currentCollection.name.localeCompare(nextCollection.name)
+        )}
         renderItem={(item) => (
           <List.Item>
             <CollectionCard {...item} />
