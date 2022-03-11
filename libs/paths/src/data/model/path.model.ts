@@ -1,4 +1,4 @@
-import { PathMethod } from "../../path";
+import { PathMethod } from '../../path';
 
 export interface PathModel {
   type: PathType;
@@ -7,15 +7,15 @@ export interface PathModel {
 }
 
 export interface ProxyModel extends PathModel {
-  type: "proxy";
+  type: 'proxy';
   target: string;
 }
 
 export interface MockModel extends PathModel {
-  type: "mock";
+  type: 'mock';
   responseBody: string;
   contentType?: string;
   encoded?: boolean;
 }
 
-type PathType = "mock" | "proxy";
+type PathType = 'mock' | 'proxy';

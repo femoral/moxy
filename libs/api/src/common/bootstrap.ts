@@ -11,11 +11,7 @@ import {
   makeJsonUpdateCollectionRepository,
   makeUpdateCollectionUseCase,
 } from '@moxy-js/collections';
-import {
-  makeAddPathUseCase,
-  makeDeletePathUseCase,
-  makeUpdatePathUseCase,
-} from '@moxy-js/collections';
+import { makeAddPathUseCase, makeDeletePathUseCase, makeUpdatePathUseCase } from '@moxy-js/collections';
 import { makeAddCollectionController } from '../controller/collections/add-collection.controller';
 import { makeAddPathController } from '../controller/paths/add-path.controller';
 import { join } from 'path';

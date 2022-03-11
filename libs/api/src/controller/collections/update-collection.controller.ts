@@ -5,11 +5,7 @@ import { CollectionDto } from '../model/collection.dto';
 import { validateUuid } from '../../common/validator';
 
 export const makeUpdateCollectionController =
-  ({
-    updateCollectionUseCase,
-  }: {
-    updateCollectionUseCase: UpdateCollectionUseCase;
-  }): RequestHandler =>
+  ({ updateCollectionUseCase }: { updateCollectionUseCase: UpdateCollectionUseCase }): RequestHandler =>
   async (req: Request, res: Response) => {
     validateUuid(req.params['id']);
     const collectionDto: CollectionDto = { ...req.body, id: req.params['id'] };

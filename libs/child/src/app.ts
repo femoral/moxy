@@ -1,17 +1,17 @@
-import express, {NextFunction, Request, Response} from "express";
-import cors from "cors";
+import express, { NextFunction, Request, Response } from 'express';
+import cors from 'cors';
 import {
   makeGetCollectionsUseCase,
   makeJsonGetCollectionRepository,
-  makeJsonGetCollectionsRepository
-} from "@moxy-js/collections";
-import {join} from "path";
+  makeJsonGetCollectionsRepository,
+} from '@moxy-js/collections';
+import { join } from 'path';
 
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
 const [, , port, configPath] = process.argv;
 
-const collectionsBasePath = join(configPath, "collections");
+const collectionsBasePath = join(configPath, 'collections');
 
 const getCollectionUseCase = makeGetCollectionsUseCase({
   getCollections: makeJsonGetCollectionsRepository({
@@ -33,20 +33,13 @@ const getCollectionUseCase = makeGetCollectionsUseCase({
     try {
       collection.paths.forEach((path) => {
         try {
-          app[path.method](
-            `/${collection.basePath}${path.path}`,
-            path.handler.bind(path)
-          );
+          app[path.method](`/${collection.basePath}${path.path}`, path.handler.bind(path));
         } catch (e) {
-          console.error(
-            `failed to load path: ${path.id} on collection: ${collection.name}`
-          );
+          console.error(`failed to load path: ${path.id} on collection: ${collection.name}`);
         }
       });
     } catch (e) {
-      console.error(
-        `failed to load collection: ${collection.id} - ${collection.name}`
-      );
+      console.error(`failed to load collection: ${collection.id} - ${collection.name}`);
     }
   });
 

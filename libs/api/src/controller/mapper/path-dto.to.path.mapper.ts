@@ -23,13 +23,7 @@ function mapMock(path: MockDto) {
 }
 
 function mapProxy(path: ProxyDto) {
-  return new ProxyPath(
-    path.id,
-    path.collection,
-    path.path,
-    path.method,
-    path.target
-  );
+  return new ProxyPath(path.id, path.collection, path.path, path.method, path.target);
 }
 
 export function reverseMap(path: Path): PathDto {

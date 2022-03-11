@@ -1,7 +1,7 @@
 import { makeChildController } from '@moxy-js/child';
 import { makeMoxyApiRouter } from './controller';
 import { makeRestartMiddleware } from './controller/middleware/restart.middleware';
-import { startDev } from "./app";
+import { startDev } from './app';
 
 const makeMoxyApi = ({
   childPort,

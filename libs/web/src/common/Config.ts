@@ -22,22 +22,16 @@ import { AxiosUpdatePathRepository } from '../data/AxiosUpdatePathRepository';
 
 const axiosInstance: AxiosInstance = axios.create({ baseURL: '/api' });
 
-const getCollectionByIdUseCase = new GetCollectionByIdUseCase(
-  new AxiosGetCollectionByNameRepository(axiosInstance)
-);
+const getCollectionByIdUseCase = new GetCollectionByIdUseCase(new AxiosGetCollectionByNameRepository(axiosInstance));
 
-const getCollectionsUseCase = new GetCollectionsUseCase(
-  new AxiosGetCollectionsRepository(axiosInstance)
-);
+const getCollectionsUseCase = new GetCollectionsUseCase(new AxiosGetCollectionsRepository(axiosInstance));
 
 const saveCollectionUseCase = new SaveCollectionUseCase(
   new AxiosAddCollectionRepository(axiosInstance),
   new AxiosUpdateCollectionRepository(axiosInstance)
 );
 
-const deleteCollectionUseCase = new DeleteCollectionUseCase(
-  new AxiosDeleteCollectionRepository(axiosInstance)
-);
+const deleteCollectionUseCase = new DeleteCollectionUseCase(new AxiosDeleteCollectionRepository(axiosInstance));
 
 const collectionMapper = new CollectionToCollectionViewModelMapper();
 
@@ -46,9 +40,7 @@ const addPathUseCase = new SavePathUseCase(
   new AxiosUpdatePathRepository(axiosInstance)
 );
 
-const deletePathUseCase = new DeletePathUseCase(
-  new AxiosDeletePathRepository(axiosInstance)
-);
+const deletePathUseCase = new DeletePathUseCase(new AxiosDeletePathRepository(axiosInstance));
 
 const pathFormMapper = new PathFormViewModelToPathMapper();
 

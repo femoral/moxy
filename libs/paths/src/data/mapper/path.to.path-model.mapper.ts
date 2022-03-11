@@ -1,7 +1,7 @@
-import { MockModel, PathModel, ProxyModel } from "../model/path.model";
-import { Path } from "../../path";
-import { ProxyPath } from "../../proxy.path";
-import { MockPath } from "../../mock.path";
+import { MockModel, PathModel, ProxyModel } from '../model/path.model';
+import { Path } from '../../path';
+import { ProxyPath } from '../../proxy.path';
+import { MockPath } from '../../mock.path';
 
 export function map(path: Path): PathModel {
   switch (path.constructor.name) {
@@ -10,13 +10,13 @@ export function map(path: Path): PathModel {
     case MockPath.name:
       return mapMock(path as MockPath);
     default:
-      throw new Error("invalid path type");
+      throw new Error('invalid path type');
   }
 }
 
 function mapProxy(path: ProxyPath): ProxyModel {
   return {
-    type: "proxy",
+    type: 'proxy',
     path: path.path,
     method: path.method,
     target: path.target,
@@ -25,7 +25,7 @@ function mapProxy(path: ProxyPath): ProxyModel {
 
 function mapMock(path: MockPath): MockModel {
   return {
-    type: "mock",
+    type: 'mock',
     path: path.path,
     method: path.method,
     responseBody: path.responseBody,

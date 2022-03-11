@@ -1,6 +1,6 @@
-import {Path, PathMethod} from "./path";
-import {Request, Response} from "express";
-import {v4 as uuid} from "uuid";
+import { Path, PathMethod } from './path';
+import { Request, Response } from 'express';
+import { v4 as uuid } from 'uuid';
 
 export class ProxyPath extends Path {
   constructor(
@@ -20,7 +20,7 @@ export class ProxyPath extends Path {
 
   handler(req: Request, res: Response): void {
     this._proxyServer.web(req, res, {
-      target: this._target + req.path.replace(/^\/[a-zA-Z0-9-_]+/, ""),
+      target: this._target + req.path.replace(/^\/[a-zA-Z0-9-_]+/, ''),
     });
   }
 }

@@ -4,11 +4,7 @@ import * as pathDtoToPathMapper from '../mapper/path-dto.to.path.mapper';
 import { validateUuid } from '../../common/validator';
 
 export const makeUpdatePathController =
-  ({
-    updatePathUseCase,
-  }: {
-    updatePathUseCase: UpdatePathUseCase;
-  }): RequestHandler =>
+  ({ updatePathUseCase }: { updatePathUseCase: UpdatePathUseCase }): RequestHandler =>
   async (req: Request, res: Response) => {
     validateUuid(req.params['collectionId']);
     validateUuid(req.params['id']);

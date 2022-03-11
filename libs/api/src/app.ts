@@ -30,4 +30,4 @@ export const startDev = () => {
     console.log(`API server started on port 3500`);
     await childController.start();
   });
-}
+};

@@ -1,6 +1,6 @@
-import { Path, PathMethod } from "./path";
-import { Request, Response } from "express";
-import { v4 as uuid } from "uuid";
+import { Path, PathMethod } from './path';
+import { Request, Response } from 'express';
+import { v4 as uuid } from 'uuid';
 
 export class MockPath extends Path {
   constructor(
@@ -9,7 +9,7 @@ export class MockPath extends Path {
     path: string,
     method: PathMethod,
     private _responseBody: string,
-    private _contentType = "application/json",
+    private _contentType = 'application/json',
     private _encoded = false
   ) {
     super(id, collection, path, method);

@@ -1,11 +1,11 @@
-import { staticContentResolver } from "./static-content-resolver";
+import { staticContentResolver } from './static-content-resolver';
 
-import { configureLocalStorage } from "./configure-local-storage";
+import { configureLocalStorage } from './configure-local-storage';
 
-import { makeUploadChanges } from "../git";
+import { makeUploadChanges } from '../git';
 
-import args from "./args";
-import moxy from "@moxy-js/api";
+import args from './args';
+import moxy from '@moxy-js/api';
 
 const {
   childPort,
@@ -13,7 +13,7 @@ const {
   port,
   skipOpen,
   git: { pushInterval, privateKey, remote },
-  enableHealth
+  enableHealth,
 }: any = args;
 
 const oneMinuteInMilliseconds = 60000;
@@ -23,27 +23,25 @@ export const bootstrap = async () => {
 
   const { commit, push } = remote
     ? await makeUploadChanges({
-      collectionsPath,
-      remote: remote,
-      key: privateKey
-    })
+        collectionsPath,
+        remote: remote,
+        key: privateKey,
+      })
     : {
-      commit: () => {
-      },
-      push: () => {
-      }
-    };
+        commit: () => {},
+        push: () => {},
+      };
 
   const { childController, moxyApiRouter } = moxy({
     childPort,
     configPath: configPath,
     debounceTime: debounce,
-    onChange: commit
+    onChange: commit,
   });
 
   if (remote) {
     setInterval(async () => {
-      await push("Periodic commit: " + new Date().toUTCString());
+      await push('Periodic commit: ' + new Date().toUTCString());
     }, pushInterval * oneMinuteInMilliseconds);
   }
 
@@ -56,6 +54,6 @@ export const bootstrap = async () => {
     port,
     skipOpen,
     enableHealth,
-    staticContentPath: staticContentResolver()
+    staticContentPath: staticContentResolver(),
   };
 };
