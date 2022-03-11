@@ -35,6 +35,7 @@ export const PaginationComponent = <T,>({
 
   return itemsSource.length > 0 ? (
     <Pagination
+      style={{ textAlign: 'center', marginTop: '1rem' }}
       size={size}
       defaultCurrent={1}
       defaultPageSize={itemPerPage}

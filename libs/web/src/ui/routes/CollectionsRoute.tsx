@@ -84,7 +84,6 @@ const CollectionsRoute = () => {
         size="small"
         orderBy="name"
       />
-      ,
       <Drawer
         title={selectedCollection?.name || 'New Collection'}
         placement="right"
