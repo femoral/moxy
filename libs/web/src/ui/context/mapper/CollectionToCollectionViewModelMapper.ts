@@ -30,14 +30,14 @@ export class CollectionToCollectionViewModelMapper extends Mapper<Collection, Co
     };
   }
 
-  private mapProxy(route: Proxy): ProxyViewModel {
+  private mapProxy(proxy: Proxy): ProxyViewModel {
     return {
-      id: route.id,
-      collection: route.collection,
-      type: route.type,
-      path: route.path,
-      method: route.method,
-      target: route.target,
+      id: proxy.id,
+      collection: proxy.collection,
+      type: proxy.type,
+      path: proxy.path,
+      method: proxy.method,
+      target: proxy.target,
     };
   }
 
