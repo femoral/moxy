@@ -14,7 +14,11 @@ export const SearchComponent = <T,>({
     onChange(
       itemsSource.filter((item: T) => {
         const itemParsed = JSON.parse(JSON.stringify(item));
-        return itemParsed[filterBy].includes(searchItem) ? item : '';
+        return itemParsed[filterBy]
+          .toLowerCase()
+          .includes(searchItem.toLocaleLowerCase())
+          ? item
+          : '';
       })
     );
   }, [itemsSource, searchItem]);
