@@ -1,6 +1,6 @@
 import { Button, Drawer, Form, List, PageHeader, Upload } from 'antd';
 import CollectionCard from '../component/CollectionCard';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   CollectionContext,
   ICollectionContext,
@@ -10,6 +10,7 @@ import { FolderAddOutlined, UploadOutlined } from '@ant-design/icons';
 import { RcFile } from 'antd/lib/upload';
 import { SearchComponent } from '../component/Search/SearchComponent';
 import { CollectionViewModel } from '../context/model/CollectionViewModel';
+import { PaginationComponent } from '../component/Pagination/PaginationComponent';
 
 const CollectionsRoute = () => {
   const {
@@ -21,8 +22,16 @@ const CollectionsRoute = () => {
     selectedCollection,
   } = useContext<ICollectionContext>(CollectionContext);
   const [collectionEditorForm] = Form.useForm();
-  const [collectionsFound, setCollectionsFound] =
-    useState<CollectionViewModel[]>(collections);
+  const [collectionsFound, setCollectionsFound] = useState<
+    CollectionViewModel[]
+  >([]);
+  const [collectionsToShow, setCollectionsToShow] = useState<
+    CollectionViewModel[]
+  >([]);
+
+  useEffect(() => {
+    setCollectionsFound(collections);
+  }, []);
 
   const beforeUpload = (file: RcFile) => {
     file.text().then(JSON.parse).then(importCollection);
@@ -61,17 +70,19 @@ const CollectionsRoute = () => {
       />
       <List
         grid={{ gutter: 16, column: 4 }}
-        dataSource={[...collectionsFound].sort(
-          (
-            currentCollection: CollectionViewModel,
-            nextCollection: CollectionViewModel
-          ) => currentCollection.name.localeCompare(nextCollection.name)
-        )}
+        dataSource={collectionsToShow}
         renderItem={(item) => (
           <List.Item>
             <CollectionCard {...item} />
           </List.Item>
         )}
+      />
+      <PaginationComponent
+        itemsSource={collectionsFound}
+        onChange={setCollectionsToShow}
+        itemPerPage={8}
+        size="small"
+        orderBy="name"
       />
       <Drawer
         title={selectedCollection?.name || 'New Collection'}

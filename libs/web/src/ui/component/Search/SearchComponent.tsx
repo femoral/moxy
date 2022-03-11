@@ -17,7 +17,7 @@ export const SearchComponent = <T,>({
         return itemParsed[filterBy].includes(searchItem) ? item : '';
       })
     );
-  }, [filterBy, itemsSource, onChange, searchItem]);
+  }, [itemsSource, searchItem]);
 
   return (
     <Input
