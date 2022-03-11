@@ -1,5 +1,5 @@
-import { Path } from "@moxy-js/paths";
-import { v4 as uuid } from "uuid";
+import { Path } from '@moxy-js/paths';
+import { v4 as uuid } from 'uuid';
 
 export class Collection {
   private readonly _id: string;

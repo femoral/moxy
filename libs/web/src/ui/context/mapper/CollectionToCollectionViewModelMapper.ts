@@ -4,10 +4,7 @@ import { Mapper } from '../../../common/Mapper';
 import { Mock, Proxy } from '../../../domain/model/Path';
 import { ProxyViewModel } from '../model/PathViewModel';
 
-export class CollectionToCollectionViewModelMapper extends Mapper<
-  Collection,
-  CollectionViewModel
-> {
+export class CollectionToCollectionViewModelMapper extends Mapper<Collection, CollectionViewModel> {
   map(collection: Collection): CollectionViewModel {
     return {
       id: collection.id,

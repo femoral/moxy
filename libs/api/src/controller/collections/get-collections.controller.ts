@@ -3,15 +3,7 @@ import * as collectionMapper from '../mapper/collection-dto.to.collection.mapper
 import { GetCollectionsUseCase } from '@moxy-js/collections';
 
 export const makeGetCollectionsController =
-  ({
-    getCollectionsUseCase,
-  }: {
-    getCollectionsUseCase: GetCollectionsUseCase;
-  }): RequestHandler =>
+  ({ getCollectionsUseCase }: { getCollectionsUseCase: GetCollectionsUseCase }): RequestHandler =>
   async (req: Request, res: Response) => {
-    res.send(
-      (await getCollectionsUseCase.execute()).map((collection) =>
-        collectionMapper.reverseMap(collection)
-      )
-    );
+    res.send((await getCollectionsUseCase.execute()).map((collection) => collectionMapper.reverseMap(collection)));
   };

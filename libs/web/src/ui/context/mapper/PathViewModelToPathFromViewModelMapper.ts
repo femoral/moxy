@@ -1,19 +1,8 @@
 import { Mapper } from '../../../common/Mapper';
-import {
-  MockViewModel,
-  PathViewModel,
-  ProxyViewModel,
-} from '../model/PathViewModel';
-import {
-  MockFormViewModel,
-  PathFormViewModel,
-  ProxyFormViewModel,
-} from '../model/PathFromViewModel';
+import { MockViewModel, PathViewModel, ProxyViewModel } from '../model/PathViewModel';
+import { MockFormViewModel, PathFormViewModel, ProxyFormViewModel } from '../model/PathFromViewModel';
 
-export class PathViewModelToPathFromViewModelMapper extends Mapper<
-  PathViewModel,
-  PathFormViewModel
-> {
+export class PathViewModelToPathFromViewModelMapper extends Mapper<PathViewModel, PathFormViewModel> {
   map(input: PathViewModel): PathFormViewModel {
     switch (input.type) {
       case 'mock':

@@ -4,10 +4,6 @@ import { addCollectionRequestSchema } from './add-collection.schema';
 
 const ajv = new Ajv();
 
-export type UpdateCollectionRequest = JTDDataType<
-  typeof addCollectionRequestSchema
->;
+export type UpdateCollectionRequest = JTDDataType<typeof addCollectionRequestSchema>;
 
-export const updateCollectionValidator = ajv.compile<UpdateCollectionRequest>(
-  addCollectionRequestSchema
-);
+export const updateCollectionValidator = ajv.compile<UpdateCollectionRequest>(addCollectionRequestSchema);

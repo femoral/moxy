@@ -66,9 +66,7 @@ const makeUploadChanges = async ({ remote, key, collectionsPath }: any) => {
 
     if (await branchExistOnRemote()) {
       await git.fetch(remoteName, branch);
-      console.log(
-        `git: rebasing remote changes with strategy ${rebaseStrategy}`
-      );
+      console.log(`git: rebasing remote changes with strategy ${rebaseStrategy}`);
       await git.rebase(['-X', rebaseStrategy, `${remoteName}/${branch}`]);
     }
 

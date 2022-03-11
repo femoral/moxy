@@ -23,18 +23,8 @@ const collectionsRouter = ({
 
   router.get('/', catchErrors(getCollections));
   router.get('/:id', catchErrors(getCollection));
-  router.post(
-    '/',
-    schemaMiddleware(addCollectionValidator),
-    restartMiddleware,
-    catchErrors(addCollection)
-  );
-  router.put(
-    '/:id',
-    schemaMiddleware(updateCollectionValidator),
-    restartMiddleware,
-    catchErrors(updateCollection)
-  );
+  router.post('/', schemaMiddleware(addCollectionValidator), restartMiddleware, catchErrors(addCollection));
+  router.put('/:id', schemaMiddleware(updateCollectionValidator), restartMiddleware, catchErrors(updateCollection));
   router.delete('/:id', restartMiddleware, catchErrors(deleteCollection));
 
   return router;

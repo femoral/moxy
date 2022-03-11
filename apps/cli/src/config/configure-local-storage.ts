@@ -1,14 +1,14 @@
-import { homedir } from "os";
+import { homedir } from 'os';
 
-import { mkdir } from "shelljs";
+import { mkdir } from 'shelljs';
 
 export const configureLocalStorage = () => {
   const configPath = `${homedir()}/.moxy`;
   const collectionsPath = `${configPath}/collections`;
 
-  mkdir("-p", collectionsPath);
+  mkdir('-p', collectionsPath);
   return {
     configPath,
-    collectionsPath
+    collectionsPath,
   };
 };

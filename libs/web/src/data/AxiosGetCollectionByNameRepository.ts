@@ -3,9 +3,7 @@ import { Collection } from '../domain/model/Collection';
 import { CollectionDto } from './model/CollectionDto';
 import { GetCollectionByNameRepository } from '../domain/repository/GetCollectionByNameRepository';
 
-export class AxiosGetCollectionByNameRepository
-  implements GetCollectionByNameRepository
-{
+export class AxiosGetCollectionByNameRepository implements GetCollectionByNameRepository {
   private readonly path = '/collections';
 
   constructor(private readonly axios: AxiosInstance) {}

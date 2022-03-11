@@ -14,16 +14,8 @@ const pathsRouter = ({
   deletePath: RequestHandler;
 }) => {
   const router = Router();
-  router.post(
-    '/:collectionId/paths',
-    schemaMiddleware(addPathValidator),
-    catchErrors(addPath)
-  );
-  router.put(
-    '/:collectionId/paths/:id',
-    schemaMiddleware(updatePathValidator),
-    catchErrors(updatePath)
-  );
+  router.post('/:collectionId/paths', schemaMiddleware(addPathValidator), catchErrors(addPath));
+  router.put('/:collectionId/paths/:id', schemaMiddleware(updatePathValidator), catchErrors(updatePath));
   router.delete('/:collectionId/paths/:id', catchErrors(deletePath));
 
   return router;
