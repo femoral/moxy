@@ -4,5 +4,5 @@ export interface Collection {
   id?: string;
   name: string;
   basePath: string;
-  paths: Path[];
+  paths?: Path[];
 }

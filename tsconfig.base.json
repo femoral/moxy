@@ -18,6 +18,7 @@
       "@moxy-js/api": ["libs/api/src"],
       "@moxy-js/child": ["libs/child/src"],
       "@moxy-js/collections": ["libs/collections/src"],
+      "@moxy-js/dto": ["libs/dto/src/index.ts"],
       "@moxy-js/paths": ["libs/paths/src"],
       "@moxy-js/web": ["libs/web"]
     }
