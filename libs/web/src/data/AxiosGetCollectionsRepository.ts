@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { Collection } from '../domain/model/Collection';
-import { CollectionDto } from './model/CollectionDto';
 import { GetCollectionsRepository } from '../domain/repository/GetCollectionsRepository';
+import { CollectionDto } from '@moxy-js/dto';
 
 export class AxiosGetCollectionsRepository implements GetCollectionsRepository {
   private readonly path = '/collections';
