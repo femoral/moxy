@@ -19,7 +19,7 @@ function mapProxy(path: ProxyPath): ProxyModel {
     type: 'proxy',
     path: path.path,
     method: path.method,
-    target: path.target,
+    target: path.targetHost,
   };
 }
 

@@ -4,6 +4,6 @@ export interface CollectionViewModel {
   id?: string;
   name: string;
   basePath: string;
-  paths: PathViewModel[];
+  paths?: PathViewModel[];
   pathNumber: number;
 }
