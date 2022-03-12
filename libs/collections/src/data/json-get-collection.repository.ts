@@ -3,12 +3,10 @@ import { Collection } from '../collection';
 import path from 'path';
 import { CollectionModel } from './model/collection.model';
 import { promises as fs } from 'fs';
-import { MockModel, ProxyModel } from '@moxy-js/paths';
-import { ProxyPath } from '@moxy-js/paths';
-import { MockPath } from '@moxy-js/paths';
+import { MockModel, MockPath, ProxyModel, ProxyPath } from '@moxy-js/paths';
 
 const makeJsonGetCollectionRepository =
-  ({ collectionsBasePath }: { collectionsBasePath: string }): GetCollection =>
+  ({ collectionsBasePath, proxyServer }: { collectionsBasePath: string; proxyServer?: any }): GetCollection =>
   async (id: string): Promise<Collection> => {
     const collectionFilePath = path.join(collectionsBasePath, id, 'collection.json');
     const collection: CollectionModel = JSON.parse(await fs.readFile(collectionFilePath, 'utf-8'));
@@ -19,18 +17,18 @@ const makeJsonGetCollectionRepository =
       const path = collection.paths[id];
       switch (path.type) {
         case 'mock':
-          return mapMock(id, collection.id, path as MockModel);
+          return mapMock(id, collection, path as MockModel);
         case 'proxy':
-          return mapProxy(id, collection.id, path as ProxyModel);
+          return mapProxy(id, collection, path as ProxyModel);
       }
     }
 
-    function mapProxy(id: string, collectionId: string, path: ProxyModel) {
-      return new ProxyPath(id, collectionId, path.path, path.method, path.target);
+    function mapProxy(id: string, collection: CollectionModel, path: ProxyModel) {
+      return new ProxyPath(id, collection.id, path.path, path.method, path.target, proxyServer, collection.basePath);
     }
 
-    function mapMock(id: string, collectionId: string, path: MockModel) {
-      return new MockPath(id, collectionId, path.path, path.method, path.responseBody, path.contentType, path.encoded);
+    function mapMock(id: string, collection: CollectionModel, path: MockModel) {
+      return new MockPath(id, collection.id, path.path, path.method, path.responseBody, path.contentType, path.encoded);
     }
   };
 export { makeJsonGetCollectionRepository };

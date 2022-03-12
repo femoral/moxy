@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response } from 'express';
 import { CreateCollectionUseCase } from '@moxy-js/collections';
 import * as collectionMapper from '../mapper/collection-dto.to.collection.mapper';
-import { CollectionDto } from '../model/collection.dto';
+import { CollectionDto } from '@moxy-js/dto';
 
 export const makeAddCollectionController =
   ({ createCollectionUseCase }: { createCollectionUseCase: CreateCollectionUseCase }): RequestHandler =>

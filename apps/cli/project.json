@@ -11,10 +11,7 @@
         "outputPath": "dist/apps/cli",
         "main": "apps/cli/src/index.ts",
         "tsConfig": "apps/cli/tsconfig.app.json",
-        "assets": [
-          "apps/cli/*.md",
-          "apps/cli/bin/*"
-        ],
+        "assets": ["apps/cli/*.md", "apps/cli/bin/*"],
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },

@@ -1,5 +1,5 @@
-import { MockDto, PathDto, ProxyDto } from '../model/path.dto';
 import { MockPath, Path, ProxyPath } from '@moxy-js/paths';
+import { MockDto, PathDto, ProxyDto } from '@moxy-js/dto';
 
 export function map(path: PathDto): Path {
   switch (path.type) {
@@ -42,7 +42,7 @@ function reverseMapProxy(path: ProxyPath): ProxyDto {
     id: path.id,
     type: 'proxy',
     collection: path.collection,
-    target: path.target,
+    target: path.targetHost,
     method: path.method,
     path: path.path,
   };

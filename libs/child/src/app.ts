@@ -6,6 +6,7 @@ import {
   makeJsonGetCollectionsRepository,
 } from '@moxy-js/collections';
 import { join } from 'path';
+import { proxyServer } from './proxy';
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
@@ -16,7 +17,7 @@ const collectionsBasePath = join(configPath, 'collections');
 const getCollectionUseCase = makeGetCollectionsUseCase({
   getCollections: makeJsonGetCollectionsRepository({
     collectionsBasePath,
-    getCollection: makeJsonGetCollectionRepository({ collectionsBasePath }),
+    getCollection: makeJsonGetCollectionRepository({ collectionsBasePath, proxyServer }),
   }),
 });
 
