@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Input } from 'antd';
 
-export const SearchComponent = <T,>({
+export const SearchComponent = <T, K extends keyof T>({
   itemsSource,
   onChange,
   placeholder,
   filterBy,
   size,
-}: SearchComponentProps<T>) => {
+}: SearchComponentProps<T, K>) => {
   const [searchItem, setSearchItem] = useState<string>('');
 
   useEffect(() => {
     onChange(
-      itemsSource.filter((item: T) => {
-        const itemParsed = JSON.parse(JSON.stringify(item));
-        return itemParsed[filterBy]
-          .toLowerCase()
-          .includes(searchItem.toLocaleLowerCase())
-          ? item
-          : '';
+      itemsSource.filter((item) => {
+        return filterBy
+          .map((filer) => (item[filer].toLowerCase().includes(searchItem.toLocaleLowerCase()) ? item : ''))
+          .some((result) => result);
       })
     );
   }, [itemsSource, searchItem]);
@@ -33,12 +30,16 @@ export const SearchComponent = <T,>({
   );
 };
 
-declare type SizeType = 'small' | 'middle' | 'large';
-
-interface SearchComponentProps<T> {
+interface SearchComponentProps<T, K extends keyof T> {
   placeholder: string;
-  itemsSource: T[];
+  itemsSource: Searchable<T, K>[];
   onChange: (value: T[]) => void;
-  filterBy: string;
+  filterBy: K[];
   size: SizeType;
 }
+
+type SizeType = 'small' | 'middle' | 'large';
+
+type Searchable<T, K extends keyof T> = {
+  [Property in K]: string;
+} & T;
