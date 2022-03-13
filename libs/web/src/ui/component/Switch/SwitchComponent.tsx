@@ -1,8 +1,14 @@
 import React, { ReactNode, useState } from 'react';
 import { Switch } from 'antd';
 
-export const SwitchComponent = ({ onChange, checkedChildren, unCheckedChildren, isDisable }: SwitchComponentProps) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+export const SwitchComponent = ({
+  onChange,
+  checkedValue,
+  checkedChildren,
+  unCheckedChildren,
+  isDisable,
+}: SwitchComponentProps) => {
+  const [isChecked, setIsChecked] = useState<boolean>(!!checkedValue);
 
   const handleOnChange = () => {
     setIsChecked(!isChecked);
@@ -27,6 +33,7 @@ interface SwitchComponentProps {
   unCheckedChildren?: ReactNode;
   size?: SizeType;
   isDisable?: boolean;
+  checkedValue?: boolean;
 }
 
 type SizeType = 'default' | 'small';
