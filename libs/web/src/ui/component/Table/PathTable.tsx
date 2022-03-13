@@ -64,7 +64,12 @@ export const PathTables = ({ paths }: PathTableProps) => {
   return (
     <div>
       <DndProvider backend={HTML5Backend}>
-        <Table dataSource={paths} columns={columns} rowKey={(path: PathViewModel) => path.id || ''} />
+        <Table
+          dataSource={paths}
+          columns={columns}
+          rowKey={(path: PathViewModel) => path.id || ''}
+          pagination={{ size: 'small' }}
+        />
       </DndProvider>
     </div>
   );
