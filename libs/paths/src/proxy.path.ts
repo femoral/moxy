@@ -16,7 +16,7 @@ export class ProxyPath extends Path {
     private _stripBasePath = true
   ) {
     super(id, collection, path, method);
-    this._target = _stripBasePath ? `${_targetHost}${_basePath}${path}` : `${_targetHost}${path}`;
+    this._target = _stripBasePath ? `${_targetHost}/${path}` : `${_targetHost}/${_basePath}${path}`;
   }
 
   get targetHost(): string {

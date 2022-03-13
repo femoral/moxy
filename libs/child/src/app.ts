@@ -1,12 +1,14 @@
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import {
+  makeCollectionToCollectionModelMapper,
   makeGetCollectionsUseCase,
   makeJsonGetCollectionRepository,
   makeJsonGetCollectionsRepository,
 } from '@moxy-js/collections';
 import { join } from 'path';
 import { proxyServer } from './proxy';
+import { makePathToPathModelMapper } from '@moxy-js/paths';
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
@@ -14,10 +16,13 @@ const [, , port, configPath] = process.argv;
 
 const collectionsBasePath = join(configPath, 'collections');
 
+const pathMapper = makePathToPathModelMapper({ proxyServer });
+const collectionMapper = makeCollectionToCollectionModelMapper({ pathMapper });
+
 const getCollectionUseCase = makeGetCollectionsUseCase({
   getCollections: makeJsonGetCollectionsRepository({
     collectionsBasePath,
-    getCollection: makeJsonGetCollectionRepository({ collectionsBasePath, proxyServer }),
+    getCollection: makeJsonGetCollectionRepository({ collectionsBasePath, collectionMapper }),
   }),
 });
 
