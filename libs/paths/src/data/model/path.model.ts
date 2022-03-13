@@ -1,6 +1,7 @@
 import { PathMethod } from '../../path';
 
 export interface PathModel {
+  id: string;
   type: PathType;
   path: string;
   method: PathMethod;
