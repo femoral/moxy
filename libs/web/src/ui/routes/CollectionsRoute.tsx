@@ -1,10 +1,7 @@
 import { Button, Drawer, Form, List, PageHeader, Upload } from 'antd';
 import CollectionCard from '../component/CollectionCard';
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  CollectionContext,
-  ICollectionContext,
-} from '../context/CollectionProvider';
+import { CollectionContext, ICollectionContext } from '../context/CollectionProvider';
 import CollectionEditor from '../container/CollectionEditor';
 import { FolderAddOutlined, UploadOutlined } from '@ant-design/icons';
 import { RcFile } from 'antd/lib/upload';
@@ -13,21 +10,11 @@ import { CollectionViewModel } from '../context/model/CollectionViewModel';
 import { PaginationComponent } from '../component/Pagination/PaginationComponent';
 
 const CollectionsRoute = () => {
-  const {
-    collections,
-    isDrawerVisible,
-    hideDrawer,
-    showDrawer,
-    importCollection,
-    selectedCollection,
-  } = useContext<ICollectionContext>(CollectionContext);
+  const { collections, isDrawerVisible, hideDrawer, showDrawer, importCollection, selectedCollection } =
+    useContext<ICollectionContext>(CollectionContext);
   const [collectionEditorForm] = Form.useForm();
-  const [collectionsFound, setCollectionsFound] = useState<
-    CollectionViewModel[]
-  >([]);
-  const [collectionsToShow, setCollectionsToShow] = useState<
-    CollectionViewModel[]
-  >([]);
+  const [collectionsFound, setCollectionsFound] = useState<CollectionViewModel[]>([]);
+  const [collectionsToShow, setCollectionsToShow] = useState<CollectionViewModel[]>([]);
 
   useEffect(() => {
     setCollectionsFound(collections);
@@ -44,19 +31,10 @@ const CollectionsRoute = () => {
         className={'content-header'}
         title={'Collections'}
         extra={[
-          <Upload
-            beforeUpload={beforeUpload}
-            showUploadList={false}
-            key={'import-button'}
-          >
+          <Upload beforeUpload={beforeUpload} showUploadList={false} key={'import-button'}>
             <Button icon={<UploadOutlined />}>Import Collection</Button>
           </Upload>,
-          <Button
-            icon={<FolderAddOutlined />}
-            type="primary"
-            onClick={showDrawer}
-            key={'add-button'}
-          >
+          <Button icon={<FolderAddOutlined />} type="primary" onClick={showDrawer} key={'add-button'}>
             Add Collection
           </Button>,
           <SearchComponent

@@ -12,8 +12,7 @@ export const PaginationComponent = <T,>({
   const [totalPages, setTotalPages] = useState<number>(1);
   const offset = (currentPage - 1) * itemPerPage;
 
-  const getItemsPerPage = (items: T[]) =>
-    items.slice(offset, offset + itemPerPage);
+  const getItemsPerPage = (items: T[]) => items.slice(offset, offset + itemPerPage);
 
   const sortItems = (items: T[]) => {
     return items.sort((firstItem, secondItem) => {
