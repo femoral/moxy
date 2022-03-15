@@ -45,6 +45,11 @@ spec:
     stages {
         stage('Version') {
           steps {
+            withCredentials([string(credentialsId: 'discord-hook', variable: 'DISCORD_HOOK')]) {
+                discordSend description: "Building branch: ${BRANCH_NAME}", footer: '', image: '', link: '', result: '', scmWebUrl: '', showChangeset: false, thumbnail: '', title: 'Build Started', webhookURL: DISCORD_HOOK
+            }
+            sh 'git branch -a | grep remotes | sed \'s/remotes\\/[^\\/]*\\///g\' | while read branch; do git checkout $branch; done'
+            sh 'git checkout $BRANCH_NAME'
             container('gitversion') {
               configFileProvider([configFile(fileId: 'default-gitversion', targetLocation: 'GitVersion.yml')]) {
                 sh "/tools/dotnet-gitversion"
@@ -92,4 +97,16 @@ spec:
           }
         }
     }
+
+  post {
+    always {
+        withCredentials([string(credentialsId: 'discord-hook', variable: 'DISCORD_HOOK')]) {
+            script {
+                def SEMVER = readFile "${WORKSPACE}/version"
+                def GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
+                discordSend description: "Build finished for branch: ${BRANCH_NAME}, version ${SEMVER}", footer: GIT_COMMIT_MSG, image: '', link: '', result: currentBuild.result, scmWebUrl: '', thumbnail: '', title: 'Build Finished', webhookURL: DISCORD_HOOK
+            }
+        }
+    }
+  }
 }
