@@ -6,6 +6,7 @@ import { SaveCollectionUseCase } from '../../domain/SaveCollectionUseCase';
 import { message } from 'antd';
 import { DeleteCollectionUseCase } from '../../domain/DeleteCollectionUseCase';
 import { GetCollectionByIdUseCase } from '../../domain/GetCollectionByIdUseCase';
+import { CollectionViewModelToCollectionMapper } from './mapper/CollectionViewModelToCollectionMapper';
 
 export interface ICollectionContext {
   collections: CollectionViewModel[];
@@ -26,31 +27,28 @@ export const createCollectionProvider = ({
   saveCollectionUseCase,
   deleteCollectionUseCase,
   getCollectionByIdUseCase,
-  collectionMapper,
+  collectionToCollectionViewModelMapper,
+  collectionViewModelToCollectionMapper,
 }: ICollectionDependencies): React.FC => {
   return ({ children }) => {
     const [collections, setCollections] = useState<CollectionViewModel[]>([]);
     const [isDrawerVisible, setDrawerVisibility] = useState(false);
     const [shouldRefresh, refresh] = useState<any>({});
-    const [selectedCollection, setSelectedCollection] = useState<
-      CollectionViewModel | undefined
-    >(undefined);
+    const [selectedCollection, setSelectedCollection] = useState<CollectionViewModel | undefined>(undefined);
 
     useEffect(() => {
       getCollectionsUseCase
         .execute()
-        .then((collections) => collectionMapper.mapArray(collections))
+        .then((collections) => collectionToCollectionViewModelMapper.mapArray(collections))
         .then(setCollections);
     }, [shouldRefresh]);
 
     const getCollections = async () => {
-      setCollections(
-        collectionMapper.mapArray(await getCollectionsUseCase.execute())
-      );
+      setCollections(collectionToCollectionViewModelMapper.mapArray(await getCollectionsUseCase.execute()));
     };
 
     const saveCollection = async (collection: any) => {
-      await saveCollectionUseCase.execute(collection);
+      await saveCollectionUseCase.execute(collectionViewModelToCollectionMapper.map(collection));
       hideDrawer();
       message.success('Collection saved');
       refresh({});
@@ -83,12 +81,8 @@ export const createCollectionProvider = ({
     };
 
     const exportCollection = async (collection: CollectionViewModel) => {
-      const collectionToBeExported = await getCollectionByIdUseCase.execute(
-        collection.id!
-      );
-      const dataStr =
-        'data:text/json;charset=utf-8,' +
-        encodeURIComponent(JSON.stringify(collectionToBeExported));
+      const collectionToBeExported = await getCollectionByIdUseCase.execute(collection.id!);
+      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(collectionToBeExported));
       const anchorElement = document.createElement('a');
       anchorElement.setAttribute('href', dataStr);
       anchorElement.setAttribute('download', collection.name + '.json');
@@ -123,7 +117,8 @@ interface ICollectionDependencies {
   getCollectionByIdUseCase: GetCollectionByIdUseCase;
   saveCollectionUseCase: SaveCollectionUseCase;
   deleteCollectionUseCase: DeleteCollectionUseCase;
-  collectionMapper: CollectionToCollectionViewModelMapper;
+  collectionToCollectionViewModelMapper: CollectionToCollectionViewModelMapper;
+  collectionViewModelToCollectionMapper: CollectionViewModelToCollectionMapper;
 }
 
 export const CollectionContext = createContext<ICollectionContext>({

@@ -10,7 +10,8 @@ export class MockPath extends Path {
     method: PathMethod,
     private _responseBody: string,
     private _contentType = 'application/json',
-    private _encoded = false
+    private _encoded = false,
+    private _status = 200
   ) {
     super(id, collection, path, method);
   }
@@ -27,7 +28,11 @@ export class MockPath extends Path {
     return this._encoded;
   }
 
+  get status(): number {
+    return this._status;
+  }
+
   handler(req: Request, res: Response): void {
-    res.contentType(this._contentType).send(this._responseBody);
+    res.status(this._status).contentType(this._contentType).send(this._responseBody);
   }
 }

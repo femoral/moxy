@@ -8,7 +8,8 @@ export class Collection {
     id: string = uuid(),
     private readonly _name: string,
     private readonly _basePath: string,
-    private _paths: Path[] | undefined = []
+    private _paths: Path[] | undefined = [],
+    private _fallbackProxy?: Path
   ) {
     this._id = id;
   }
@@ -27,6 +28,10 @@ export class Collection {
 
   get paths(): Path[] {
     return this._paths || [];
+  }
+
+  get fallbackProxy(): Path | undefined {
+    return this._fallbackProxy;
   }
 
   addPath(path: Path): void {

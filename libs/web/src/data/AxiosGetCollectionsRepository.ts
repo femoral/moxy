@@ -9,7 +9,7 @@ export class AxiosGetCollectionsRepository implements GetCollectionsRepository {
   constructor(private readonly axios: AxiosInstance) {}
 
   async getCollections(): Promise<Collection[]> {
-    let axiosResponse = await this.axios.get<CollectionDto[]>(this.path);
+    const axiosResponse = await this.axios.get<CollectionDto[]>(this.path);
     return axiosResponse.data.map((collection) => ({ ...collection }));
   }
 }

@@ -5,4 +5,5 @@ export interface CollectionDto {
   name: string;
   basePath: string;
   paths?: PathDto[];
+  fallbackProxy?: PathDto;
 }

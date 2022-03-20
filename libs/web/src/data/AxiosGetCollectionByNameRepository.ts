@@ -9,7 +9,7 @@ export class AxiosGetCollectionByNameRepository implements GetCollectionByNameRe
   constructor(private readonly axios: AxiosInstance) {}
 
   async getCollectionById(id: string): Promise<Collection> {
-    let { data } = await this.axios.get<CollectionDto>(`${this.path}/${id}`);
+    const { data } = await this.axios.get<CollectionDto>(`${this.path}/${id}`);
     return data;
   }
 }
