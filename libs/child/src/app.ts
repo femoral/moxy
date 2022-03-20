@@ -37,13 +37,19 @@ const getCollectionUseCase = makeGetCollectionsUseCase({
 
   (await getCollectionUseCase.execute()).forEach((collection) => {
     try {
+      const router = express.Router();
+
       collection.paths.forEach((path) => {
         try {
-          app[path.method](`/${collection.basePath}${path.path}`, path.handler.bind(path));
+          router[path.method](`${path.path}`, path.handler.bind(path));
         } catch (e) {
           console.error(`failed to load path: ${path.id} on collection: ${collection.name}`);
         }
       });
+
+      if (collection.fallbackProxy) router.all(`/*`, collection.fallbackProxy.handler.bind(collection.fallbackProxy));
+
+      app.use(`/${collection.basePath}`, router);
     } catch (e) {
       console.error(`failed to load collection: ${collection.id} - ${collection.name}`);
     }

@@ -55,7 +55,7 @@ const makeUploadChanges = async ({ remote, key, collectionsPath }: any) => {
     await git.fetch();
   };
 
-  const commit = async (message: any) => {
+  const commit = async (message: string) => {
     await git.add(['-A']);
     await git.commit(message);
   };

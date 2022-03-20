@@ -1,5 +1,10 @@
 {
-  "extends": ["..\\..\\.eslintrc.json"],
+  "extends": [
+    "../../.eslintrc.json",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
