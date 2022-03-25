@@ -7,7 +7,8 @@ export function map(collectionDto: CollectionDto): Collection {
     collectionDto.id,
     collectionDto.name,
     collectionDto.basePath,
-    collectionDto.paths?.map(pathMapper.map)
+    collectionDto.paths?.map(pathMapper.map),
+    collectionDto.fallbackProxy && pathMapper.map(collectionDto.fallbackProxy)
   );
 }
 
@@ -17,5 +18,6 @@ export function reverseMap(collection: Collection): CollectionDto {
     name: collection.name,
     basePath: collection.basePath,
     paths: collection.paths.map((path) => pathMapper.reverseMap(path)),
+    fallbackProxy: collection.fallbackProxy && pathMapper.reverseMap(collection.fallbackProxy),
   };
 }

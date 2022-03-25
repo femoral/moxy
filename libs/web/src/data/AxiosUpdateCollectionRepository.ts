@@ -14,6 +14,7 @@ export class AxiosUpdateCollectionRepository implements UpdateCollectionReposito
       basePath: collection.basePath,
       name: collection.name,
       paths: collection.paths,
+      fallbackProxy: collection.fallbackProxy,
     };
   }
 }

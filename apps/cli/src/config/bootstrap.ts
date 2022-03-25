@@ -28,8 +28,12 @@ export const bootstrap = async () => {
         key: privateKey,
       })
     : {
-        commit: () => {},
-        push: () => {},
+        commit: () => {
+          //noop
+        },
+        push: () => {
+          //noop
+        },
       };
 
   const { childController, moxyApiRouter } = moxy({

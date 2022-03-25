@@ -2,7 +2,7 @@
   "name": "@moxy-js/api",
   "version": "0.0.1",
   "type": "commonjs",
-  "license": "LICENSE",
+  "license": "MIT", "homepage": "https://github.com/femoral/moxy-js#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/femoral/moxy.git"

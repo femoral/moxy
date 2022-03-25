@@ -6,6 +6,10 @@ import { ProxyViewModel } from '../model/PathViewModel';
 
 export class CollectionToCollectionViewModelMapper extends Mapper<Collection, CollectionViewModel> {
   map(collection: Collection): CollectionViewModel {
+    const [targetScheme, targetHost] = collection.fallbackProxy
+      ? (collection.fallbackProxy as Proxy).target.split('://')
+      : [];
+
     return {
       id: collection.id,
       name: collection.name,
@@ -27,6 +31,9 @@ export class CollectionToCollectionViewModelMapper extends Mapper<Collection, Co
         }
       }),
       pathNumber: collection.paths?.length || 0,
+      fallbackProxyEnabled: !!collection.fallbackProxy,
+      targetHost,
+      targetScheme,
     };
   }
 
