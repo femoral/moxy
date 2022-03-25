@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { v4 as uuid } from 'uuid';
 
 export class ProxyPath extends Path {
-  private readonly _target: string;
+  private readonly _getBasePath: (req: Request) => string;
 
   constructor(
     id = uuid(),
@@ -16,7 +16,7 @@ export class ProxyPath extends Path {
     private _stripBasePath = true
   ) {
     super(id, collection, path, method);
-    this._target = _stripBasePath ? `${_targetHost}/${path}` : `${_targetHost}/${_basePath}${path}`;
+    this._getBasePath = this._stripBasePath ? (req) => req.url : (req) => req.originalUrl;
   }
 
   get targetHost(): string {
@@ -25,7 +25,7 @@ export class ProxyPath extends Path {
 
   handler(req: Request, res: Response): void {
     this._proxyServer.web(req, res, {
-      target: this._target,
+      target: this._targetHost + this._getBasePath(req),
     });
   }
 }

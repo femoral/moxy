@@ -84,7 +84,7 @@ const CollectionsRoute = () => {
           </div>
         }
       >
-        <CollectionEditor pathEditorForm={collectionEditorForm} />
+        <CollectionEditor form={collectionEditorForm} />
       </Drawer>
     </>
   );

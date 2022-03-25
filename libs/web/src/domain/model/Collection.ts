@@ -5,4 +5,5 @@ export interface Collection {
   name: string;
   basePath: string;
   paths?: Path[];
+  fallbackProxy?: Path;
 }
