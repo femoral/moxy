@@ -11,22 +11,24 @@ const { Content } = Layout;
 export const ContentRouter = () => {
   return (
     <Content
-        className="site-layout-background"
-        style={{
-          padding: 24,
-          minHeight: 280,
-        }}
-      >
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <CollectionProvider>
-                <CollectionsRoute />
-              </CollectionProvider>
-            )}
-          /><Route exact path="/events" render={(props) => <EventRoute />} />
+      className="site-layout-background"
+      style={{
+
+        padding: 24,
+        minHeight: 280,
+      }}
+    >
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <CollectionProvider>
+              <CollectionsRoute />
+            </CollectionProvider>
+          )}
+        /><Route exact path="/events" render={(props) => <EventRoute />} />
+        <Route exact path="/events" render={(props) => <EventRoute />} />
         <Route
           exact
           path="/:collectionId"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Layout, Row  } from 'antd';
+import { Col, Layout, Row } from 'antd';
 import './App.css';
 import { ContentRouter } from './ui/routes/ContentRouter';
 import { AppProvider } from './common/Config';
@@ -8,6 +8,7 @@ import { ThemeProvider, DefaultTheme } from 'styled-components';
 import dark from './ui/styles/themes/dark';
 import light from './ui/styles/themes/light';
 import GlobalStyle from './ui/styles/global';
+import { BrowserRouter as Router } from 'react-router-dom';
 import SideMenu from './ui/container/SideMenu';
 
 const { Header } = Layout;
@@ -25,23 +26,24 @@ function App() {
 
   return (
     <AppProvider>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Layout style={{ minHeight: '100vh' }}>
-          <SideMenu />
-
-          <Layout className="site-layout">
-            <Header className="site-layout-background" style={{ padding: 0 }}>
-              <Row>
-                <Col offset={22} span={2}>
-                  <SwitchComponent checkedValue={theme.title !== 'light'} onChange={changeTheme} />
-                </Col>
-              </Row>
-            </Header>
-            <ContentRouter />
+      <Router basename={process.env['NX_PUBLIC_URL']}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <Layout style={{ minHeight: '100vh' }}>
+            <SideMenu />
+            <Layout className="site-layout">
+              <Header className="site-layout-background" style={{ padding: 0 }}>
+                <Row>
+                  <Col offset={22} span={2}>
+                    <SwitchComponent checkedValue={theme.title !== 'light'} onChange={changeTheme} />
+                  </Col>
+                </Row>
+              </Header>
+              <ContentRouter />
+            </Layout>
           </Layout>
-        </Layout>
-      </ThemeProvider>
+        </ThemeProvider>
+      </Router>
     </AppProvider>
   );
 }
