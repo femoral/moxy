@@ -19,4 +19,4 @@ export interface MockDto extends PathDto {
 }
 
 type PathType = 'mock' | 'proxy';
-type PathMethod = 'get' | 'post' | 'patch' | 'options' | 'put' | 'all';
+export type PathMethod = 'get' | 'post' | 'patch' | 'options' | 'put' | 'all';

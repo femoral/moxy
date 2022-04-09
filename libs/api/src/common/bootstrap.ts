@@ -1,8 +1,9 @@
-import { createProxyServer } from 'http-proxy';
 import {
+  makeAddPathUseCase,
   makeCollectionToCollectionModelMapper,
   makeCreateCollectionUseCase,
   makeDeleteCollectionUseCase,
+  makeDeletePathUseCase,
   makeGetCollectionsUseCase,
   makeGetCollectionUseCase,
   makeJsonCreateCollectionRepository,
@@ -11,8 +12,8 @@ import {
   makeJsonGetCollectionsRepository,
   makeJsonUpdateCollectionRepository,
   makeUpdateCollectionUseCase,
+  makeUpdatePathUseCase,
 } from '@moxy-js/collections';
-import { makeAddPathUseCase, makeDeletePathUseCase, makeUpdatePathUseCase } from '@moxy-js/collections';
 import { makeAddCollectionController } from '../controller/collections/add-collection.controller';
 import { makeAddPathController } from '../controller/paths/add-path.controller';
 import { join } from 'path';
@@ -22,10 +23,12 @@ import { makeGetCollectionsController } from '../controller/collections/get-coll
 import { makeUpdateCollectionController } from '../controller/collections/update-collection.controller';
 import { makeDeletePathController } from '../controller/paths/delete-path.controller';
 import { makeUpdatePathController } from '../controller/paths/update-path.controller';
-import { Request, Response } from 'express';
 import { makeChangeMiddleware } from '../data/middleware/change.middleware';
-import { ServerResponse } from 'http';
 import { makePathToPathModelMapper } from '@moxy-js/paths';
+import { Observer } from './observer';
+import { HttpEvent } from '@moxy-js/dto';
+import { createChildHandler } from '../controller/child/child.controller';
+import { createHttpEventController } from '../controller/event/http-event.controller';
 
 export type AppConfig = {
   childPort: string;
@@ -75,20 +78,7 @@ const bootstrapApp = ({ childPort, configPath, onChange }: AppConfig): any => {
     messagePrefix: 'deleted collection: ',
   });
 
-  const proxyServer = createProxyServer({
-    target: `http://localhost:${childPort}`,
-  });
-
-  proxyServer.on('error', (error, req, res) => {
-    console.error(error.message);
-    if (res instanceof ServerResponse) {
-      res.writeHead(502, {
-        'Content-Type': 'text/plain',
-      });
-    }
-
-    res.end('Failed to proxy request to child server');
-  });
+  const httpEventObserver = new Observer<HttpEvent>();
 
   return {
     addCollection: makeAddCollectionController({
@@ -134,7 +124,8 @@ const bootstrapApp = ({ childPort, configPath, onChange }: AppConfig): any => {
         getCollection: getCollectionRepository,
       }),
     }),
-    defaultHandler: (req: Request, res: Response) => proxyServer.web(req, res),
+    defaultHandler: createChildHandler({ childPort, requestObserver: httpEventObserver }),
+    eventHandler: createHttpEventController({ httpEventObserver }),
   };
 };
 export default bootstrapApp;

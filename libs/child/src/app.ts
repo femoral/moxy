@@ -31,7 +31,6 @@ const getCollectionUseCase = makeGetCollectionsUseCase({
 
   app.use(cors());
   app.use((req: Request, res: Response, next: NextFunction) => {
-    console.log(`${req.method.toUpperCase()} ${req.path}`);
     next();
   });
 

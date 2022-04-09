@@ -25,10 +25,11 @@ export const makeMoxyApiRouter = ({
     deletePath,
     updatePath,
     defaultHandler,
+    eventHandler,
   } = bootstrapApp({ childPort, configPath, onChange });
 
   const router = Router();
-
+  router.get('/api/events', eventHandler);
   router.use(express.json());
   router.use(
     '/api/collections',

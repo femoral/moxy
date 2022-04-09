@@ -18,7 +18,8 @@
       "options": {
         "buildTarget": "api:build",
         "runtimeArgs": ["-r", "tsconfig-paths/register"],
-        "inspect": false
+        "inspect": false,
+        "watch": true
       }
     },
     "lint": {
