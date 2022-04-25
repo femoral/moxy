@@ -1,8 +1,9 @@
 interface Headers {
-  [key: string]: string[] | string | undefined;
+  [key: string]: number | string[] | string | undefined;
 }
 
 export interface HttpEvent {
+  id: string;
   method?: string;
   baseUrl?: string;
   collectionId: string;

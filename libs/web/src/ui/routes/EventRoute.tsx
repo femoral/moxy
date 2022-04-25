@@ -5,14 +5,16 @@ import { HttpEvent } from '@moxy-js/dto';
 
 const { Panel } = Collapse;
 
+interface HttpEventViewModel {}
+
 const EventRoute = () => {
   const history = useHistory();
-  const [events, setEvents] = useState<HttpEvent[]>([]);
+  const [events, setEvents] = useState<Map<string, HttpEvent>>(new Map<string, HttpEvent>());
 
   const onmessage = (event: MessageEvent) => {
     const httpEvent = JSON.parse(event.data);
 
-    setEvents((events) => events.concat(httpEvent));
+    setEvents((events) => events.set(httpEvent.id, httpEvent));
     console.log(httpEvent);
   };
 
@@ -33,7 +35,7 @@ const EventRoute = () => {
       <PageHeader className={'content-header'} onBack={() => history.goBack()} title={'Events'} subTitle={''} />
 
       <Collapse>
-        {events.map((event, index) => (
+        {Array.from(events.values()).map((event: HttpEvent, index) => (
           <Panel header={`${event.method} ${event.baseUrl}`} key={index}>
             <p>{JSON.stringify(event, undefined, 2)}</p>
           </Panel>

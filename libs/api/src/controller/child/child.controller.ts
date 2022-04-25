@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { createProxyServer } from 'http-proxy';
 import { Observer } from '../../common/observer';
 import { HttpEvent } from '@moxy-js/dto';
+import { v4 } from 'uuid';
 
 export const createChildHandler = ({
   childPort,
@@ -28,18 +29,39 @@ export const createChildHandler = ({
   });
 
   proxyServer.on('proxyReq', (proxyReq, req) => {
-    let data = '';
+    const data: Uint8Array[] = [];
 
     req.on('data', (chunk) => {
-      data += chunk;
+      data.push(chunk);
     });
 
     req.on('end', () => {
       requestObserver.notify({
+        id: (req as any).eventId,
         baseUrl: req.url,
         method: req.method,
         type: 'REQUEST',
-        body: data.toString(),
+        body: Buffer.concat(data).toString(),
+        collectionId: '',
+        headers: req.headers,
+      });
+    });
+  });
+
+  proxyServer.on('proxyRes', (proxyRes, req) => {
+    const data: Uint8Array[] = [];
+
+    proxyRes.on('data', (chunk) => {
+      data.push(chunk);
+    });
+
+    proxyRes.on('end', () => {
+      requestObserver.notify({
+        id: (req as any).eventId,
+        baseUrl: req.url,
+        method: req.method,
+        type: 'RESPONSE',
+        body: Buffer.concat(data).toString(),
         collectionId: '',
         headers: req.headers,
       });
@@ -47,6 +69,8 @@ export const createChildHandler = ({
   });
 
   return (req: Request, res: Response) => {
+    (req as any).eventId = v4();
+
     proxyServer.web(req, res);
   };
 };
