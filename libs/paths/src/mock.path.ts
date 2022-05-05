@@ -3,6 +3,8 @@ import { Request, Response } from 'express';
 import { v4 as uuid } from 'uuid';
 
 export class MockPath extends Path {
+  private _response: string | Buffer;
+
   constructor(
     id = uuid(),
     collection: string,
@@ -14,6 +16,12 @@ export class MockPath extends Path {
     private _status = 200
   ) {
     super(id, collection, path, method);
+
+    if (_encoded) {
+      this._response = Buffer.from(_responseBody, 'base64');
+    } else {
+      this._response = _responseBody;
+    }
   }
 
   get responseBody(): string {
@@ -33,6 +41,6 @@ export class MockPath extends Path {
   }
 
   handler(req: Request, res: Response): void {
-    res.status(this._status).contentType(this._contentType).send(this._responseBody);
+    res.status(this._status).contentType(this._contentType).send(this._response);
   }
 }
