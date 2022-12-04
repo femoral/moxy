@@ -1,9 +1,10 @@
-import { Button, Drawer, PageHeader } from 'antd';
+import { Button, Drawer } from 'antd';
 import React, { useContext, useEffect } from 'react';
 import PathEditor from '../container/PathEditor';
 import { useHistory } from 'react-router-dom';
 import { PathTables } from '../component/Table/PathTable';
 import { IPathContext, PathContext } from '../context/PathProvider';
+import { PageHeader } from '@ant-design/pro-components';
 
 const PathsRoute = ({ collectionId }: PathsRouteProps) => {
   const { parentCollection, setCollectionId, showDrawer, hideDrawer, isDrawerVisible, form } =
