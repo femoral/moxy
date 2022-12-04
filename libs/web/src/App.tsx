@@ -31,6 +31,9 @@ function App() {
               <Menu.Item key="1" icon={<FolderOutlined />}>
                 Collections
               </Menu.Item>
+              <Menu.Item key="2" icon={<FolderOutlined />}>
+                MOCK
+              </Menu.Item>
             </Menu>
           </Sider>
 
