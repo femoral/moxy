@@ -25,10 +25,10 @@ function App() {
         <Layout style={{ minHeight: '100vh' }}>
           <Sider trigger={null}>
             <div className="logo">
-              <Typography.Title style={{ color: '#fff' }}>moxy</Typography.Title>
+              <Typography.Title>moxy</Typography.Title>
             </div>
             <Menu mode="inline" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1" icon={<FolderOutlined />}>
+              <Menu.Item className="test" key="1" icon={<FolderOutlined />}>
                 Collections
               </Menu.Item>
               <Menu.Item key="2" icon={<FolderOutlined />}>
@@ -38,13 +38,6 @@ function App() {
           </Sider>
 
           <Layout className="site-layout">
-            <Header className="site-layout-background" style={{ padding: 0 }}>
-              <Row>
-                <Col offset={22} span={2}>
-                  <SwitchComponent onChange={changeTheme} />
-                </Col>
-              </Row>
-            </Header>
             <ContentRouter />
           </Layout>
         </Layout>
