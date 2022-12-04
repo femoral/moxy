@@ -1,25 +1,30 @@
 import { ThemeConfig } from 'antd/lib/config-provider/context';
 
 export const darkTheme: ThemeConfig = {
+  hashed: false,
   components: {
     Layout: {
-      colorBgHeader: '#18181B',
-      colorBgBody: '#0E0E10',
+      colorBgHeader: '#071B2F',
+      colorBgBody: '#001E3C',
     },
     Menu: {
-      colorItemBg: '#1F1F23',
-      colorItemBgSelected: '#3C3C3F',
+      colorItemBg: '#071B2F',
+      colorItemBgSelected: '#132F4C',
 
-      colorItemTextSelected: '#E5F1FD',
-      colorItemText: '#E5F1FD',
+      colorItemTextSelected: '#91B9E3',
+      colorItemText: '#fff',
 
-      colorItemTextHover: '#E5F1FD',
-      colorItemBgHover: '#282828',
+      colorItemTextHover: '#91B9E3',
+      colorItemBgHover: '#132F4C',
 
-      radiusItem: 0,
+      radiusItem: 20,
     },
     Card: {
       colorBgContainer: '#3D3D40',
+    },
+    Typography: {
+      colorTextHeading: '#fff',
+      fontSizeHeading1: 40,
     },
   },
 };

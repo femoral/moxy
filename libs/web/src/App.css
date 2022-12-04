@@ -13,10 +13,13 @@
   color: #1890ff;
 }
 
+.ant-typography{
+  font-family: 'Fascinate', sans-serif;
+}
+
 .logo {
   height: 44px;
   margin: 8px 24px;
-  font-family: 'Fascinate', sans-serif;
   overflow: hidden;
 }
 
