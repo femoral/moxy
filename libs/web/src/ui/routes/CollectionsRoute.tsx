@@ -1,4 +1,5 @@
-import { Button, Drawer, Form, List, PageHeader, Upload } from 'antd';
+import { Button, Drawer, Form, List, Upload } from 'antd';
+import {PageHeader} from '@ant-design/pro-components'
 import CollectionCard from '../component/CollectionCard';
 import React, { useContext, useEffect, useState } from 'react';
 import { CollectionContext, ICollectionContext } from '../context/CollectionProvider';
