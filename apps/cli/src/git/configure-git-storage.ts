@@ -37,7 +37,7 @@ const makeUploadChanges = async ({ remote, key, collectionsPath }: any) => {
     console.log(`git: writing local config`);
     await git
       .addConfig('user.name', 'moxyd')
-      .addConfig('user.email', 'moxyd@moxy-jsd.org')
+      .addConfig('user.email', 'moxyd@moxyd.org')
       .addConfig('core.sshCommand', sshCommand);
   };
 
@@ -55,7 +55,7 @@ const makeUploadChanges = async ({ remote, key, collectionsPath }: any) => {
     await git.fetch();
   };
 
-  const commit = async (message: string) => {
+  const commit = async (message: any) => {
     await git.add(['-A']);
     await git.commit(message);
   };
@@ -66,7 +66,9 @@ const makeUploadChanges = async ({ remote, key, collectionsPath }: any) => {
 
     if (await branchExistOnRemote()) {
       await git.fetch(remoteName, branch);
-      console.log(`git: rebasing remote changes with strategy ${rebaseStrategy}`);
+      console.log(
+        `git: rebasing remote changes with strategy ${rebaseStrategy}`
+      );
       await git.rebase(['-X', rebaseStrategy, `${remoteName}/${branch}`]);
     }
 

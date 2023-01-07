@@ -1,6 +1,10 @@
 import Ajv from 'ajv';
 import { JTDDataType } from 'ajv/dist/types/jtd-schema';
-import { addMockSchema, addProxySchema, pathProperties as addPathProperties } from './add-path.schema';
+import {
+  addMockSchema,
+  addProxySchema,
+  pathProperties as addPathProperties,
+} from './add-path.schema';
 
 const ajv = new Ajv();
 
@@ -31,6 +35,9 @@ export const updatePathSchema = {
   oneOf: [updateMockSchema, updateProxySchema],
 };
 
-export type AddPathRequest = JTDDataType<typeof updateMockSchema> | JTDDataType<typeof updateProxySchema>;
+export type AddPathRequest =
+  | JTDDataType<typeof updateMockSchema>
+  | JTDDataType<typeof updateProxySchema>;
 
-export const updatePathValidator = ajv.compile<AddPathRequest>(updatePathSchema);
+export const updatePathValidator =
+  ajv.compile<AddPathRequest>(updatePathSchema);

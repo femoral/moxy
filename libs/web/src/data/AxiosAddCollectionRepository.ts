@@ -8,7 +8,7 @@ export class AxiosAddCollectionRepository implements AddCollectionRepository {
   constructor(private readonly axios: AxiosInstance) {}
 
   async addCollection(collection: Collection): Promise<Collection> {
-    const axiosResponse = await this.axios.post<string>(this.path, collection);
+    let axiosResponse = await this.axios.post<string>(this.path, collection);
     return {
       id: axiosResponse.data,
       basePath: collection.basePath,

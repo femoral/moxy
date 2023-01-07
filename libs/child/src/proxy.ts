@@ -1,5 +1,5 @@
-import { createProxyServer } from 'http-proxy';
-import { ServerResponse } from 'http';
+import { createProxyServer } from "http-proxy";
+import { ServerResponse } from "http";
 
 export const proxyServer = createProxyServer({
   changeOrigin: true,
@@ -7,13 +7,13 @@ export const proxyServer = createProxyServer({
   ignorePath: true,
 });
 
-proxyServer.on('error', (error, req, res) => {
+proxyServer.on("error", (error, req, res) => {
   console.error(error.message);
   if (res instanceof ServerResponse) {
     res.writeHead(502, {
-      'Content-Type': 'text/plain',
+      "Content-Type": "text/plain"
     });
   }
 
-  res.end('Failed to proxy request to target');
+  res.end("Failed to proxy request to target");
 });

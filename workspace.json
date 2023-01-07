@@ -5,7 +5,6 @@
     "child": "libs/child",
     "cli": "apps/cli",
     "collections": "libs/collections",
-    "dto": "libs/dto",
     "paths": "libs/paths",
     "web": "libs/web"
   }

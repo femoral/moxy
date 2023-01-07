@@ -4,7 +4,9 @@ export class AxiosErrorInterceptor {
   private _onError: Function | undefined;
 
   constructor(axiosInstance: AxiosInstance) {
-    axiosInstance.interceptors.response.use(undefined, (error) => this.handler(error));
+    axiosInstance.interceptors.response.use(undefined, (error) =>
+      this.handler(error)
+    );
   }
 
   private handler(error: any) {

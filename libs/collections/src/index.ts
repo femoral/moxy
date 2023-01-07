@@ -9,7 +9,6 @@ export * from './update-path.usecase';
 export * from './update-collection.usecase';
 export * from './repository/collection.repository';
 export * from './data/model/collection.model';
-export * from './data/mapper/collection-to-collection-model.mapper';
 export * from './data/json-create-collection.repository';
 export * from './data/json-delete-collection.repository';
 export * from './data/json-update-collection.repository';

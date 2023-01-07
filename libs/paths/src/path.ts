@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
 export abstract class Path {
   protected constructor(
@@ -27,4 +27,4 @@ export abstract class Path {
   abstract handler(req: Request, res: Response): void;
 }
 
-export type PathMethod = 'get' | 'post' | 'patch' | 'options' | 'put' | 'all';
+export type PathMethod = "get" | "post" | "patch" | "options" | "put" | "all";

@@ -1,5 +1,5 @@
-import { Path } from '@moxy-js/paths';
-import { v4 as uuid } from 'uuid';
+import { Path } from "@moxy/paths";
+import { v4 as uuid } from "uuid";
 
 export class Collection {
   private readonly _id: string;
@@ -8,8 +8,7 @@ export class Collection {
     id: string = uuid(),
     private readonly _name: string,
     private readonly _basePath: string,
-    private _paths: Path[] | undefined = [],
-    private _fallbackProxy?: Path
+    private _paths: Path[] | undefined = []
   ) {
     this._id = id;
   }
@@ -28,10 +27,6 @@ export class Collection {
 
   get paths(): Path[] {
     return this._paths || [];
-  }
-
-  get fallbackProxy(): Path | undefined {
-    return this._fallbackProxy;
   }
 
   addPath(path: Path): void {

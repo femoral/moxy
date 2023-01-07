@@ -10,8 +10,7 @@
         "outputPath": "dist/libs/child",
         "main": "libs/child/src/index.ts",
         "tsConfig": "libs/child/tsconfig.lib.json",
-        "assets": ["libs/child/*.md"],
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "assets": ["libs/child/*.md"]
       }
     },
     "lint": {

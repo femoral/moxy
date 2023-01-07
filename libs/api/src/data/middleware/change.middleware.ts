@@ -5,7 +5,7 @@ export const makeChangeMiddleware = <T extends (arg: any) => Promise<any>>({
 }: {
   changeFunction: T;
   messagePrefix: string;
-  onChange: (message: string) => void;
+  onChange: Function;
 }): T => {
   const getMessage = (argument: any) => {
     return `${messagePrefix} ${argument.id || argument}`;

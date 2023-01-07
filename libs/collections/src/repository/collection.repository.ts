@@ -1,4 +1,4 @@
-import { Collection } from '../collection';
+import { Collection } from "../collection";
 
 export type CreateCollection = (collection: Collection) => Promise<void>;
 export type UpdateCollection = (collection: Collection) => Promise<void>;

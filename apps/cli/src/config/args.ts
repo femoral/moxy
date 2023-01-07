@@ -2,58 +2,60 @@ import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 
 export default yargs(hideBin(process.argv))
-  .option(
-    'port' as any,
-    {
-      alias: 'p',
-      type: 'number',
-      description: 'Port of the main server, where control panel will be served',
-      default: 3500,
-    } as any
-  )
-  .option('child-port', {
-    alias: 'c',
-    type: 'number',
-    description: 'Port of the child server, where mocks & proxies will be served',
-    default: 3501,
-  })
-  .option('debounce', {
-    alias: 'd',
-    type: 'number',
-    description: 'Debounce time in milliseconds for child server restarts',
-    default: 5000,
-  })
-  .option('skip-open', {
-    alias: 's',
-    type: 'boolean',
-    description: 'Skip browser launch',
-    default: false,
-  })
-  .option('enable-health', {
-    alias: 'h',
-    type: 'boolean',
-    description: 'Enable health check on /health',
-    default: false,
-  })
-  .option('git', {
-    type: 'object',
+  .option("port" as any, {
+    alias: "p",
+    type: "number",
+    description: "Port of the main server, where control panel will be served",
+    default: 3500,
   } as any)
-  .option('git.remote', {
-    type: 'string',
-    description: 'Remote url of git repository',
+  .option("child-port", {
+    alias: "c",
+    type: "number",
+    description:
+      "Port of the child server, where mocks & proxies will be served",
+    default: 3501
   })
-  .option('git.private-key', {
-    type: 'string',
-    description: "Path to private key or base64 encoded private key (with 'encoded:' prefix)",
+  .option("debounce", {
+    alias: "d",
+    type: "number",
+    description: "Debounce time in milliseconds for child server restarts",
+    default: 5000
   })
-  .option('git.push-interval', {
-    type: 'number',
-    description: 'Interval after which changes will be pushed to the remote repository (in minutes)',
-    default: 60,
+  .option("skip-open", {
+    alias: "s",
+    type: "boolean",
+    description: "Skip browser launch",
+    default: false
+  })
+  .option("enable-health", {
+    alias: "h",
+    type: "boolean",
+    description: "Enable health check on /health",
+    default: false
+  })
+  .option("git", {
+    type: "object"
+  } as any)
+  .option("git.remote", {
+    type: "string",
+    description: "Remote url of git repository"
+  })
+  .option("git.private-key", {
+    type: "string",
+    description:
+      "Path to private key or base64 encoded private key (with 'encoded:' prefix)"
+  })
+  .option("git.push-interval", {
+    type: "number",
+    description:
+      "Interval after which changes will be pushed to the remote repository (in minutes)",
+    default: 60
   })
   .check((argv: any) => {
     if (argv.git.remote && !argv.git.privateKey) {
-      throw new Error('In order to use a git repository --git.private-key option should be provided');
+      throw new Error(
+        'In order to use a git repository --git.private-key option should be provided'
+      );
     }
 
     if (argv.git.interval < 1) {

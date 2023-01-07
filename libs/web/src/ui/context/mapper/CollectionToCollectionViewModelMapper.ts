@@ -4,17 +4,16 @@ import { Mapper } from '../../../common/Mapper';
 import { Mock, Proxy } from '../../../domain/model/Path';
 import { ProxyViewModel } from '../model/PathViewModel';
 
-export class CollectionToCollectionViewModelMapper extends Mapper<Collection, CollectionViewModel> {
+export class CollectionToCollectionViewModelMapper extends Mapper<
+  Collection,
+  CollectionViewModel
+> {
   map(collection: Collection): CollectionViewModel {
-    const [targetScheme, targetHost] = collection.fallbackProxy
-      ? (collection.fallbackProxy as Proxy).target.split('://')
-      : [];
-
     return {
       id: collection.id,
       name: collection.name,
       basePath: collection.basePath,
-      paths: collection.paths?.map((route) => {
+      paths: collection.paths.map((route) => {
         switch (route.type) {
           case 'mock':
             return this.mapMock(route as Mock);
@@ -31,20 +30,17 @@ export class CollectionToCollectionViewModelMapper extends Mapper<Collection, Co
         }
       }),
       pathNumber: collection.paths?.length || 0,
-      fallbackProxyEnabled: !!collection.fallbackProxy,
-      targetHost,
-      targetScheme,
     };
   }
 
-  private mapProxy(proxy: Proxy): ProxyViewModel {
+  private mapProxy(route: Proxy): ProxyViewModel {
     return {
-      id: proxy.id,
-      collection: proxy.collection,
-      type: proxy.type,
-      path: proxy.path,
-      method: proxy.method,
-      target: proxy.target,
+      id: route.id,
+      collection: route.collection,
+      type: route.type,
+      path: route.path,
+      method: route.method,
+      target: route.target,
     };
   }
 

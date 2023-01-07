@@ -9,8 +9,7 @@
         "outputPath": "dist/libs/api",
         "main": "libs/api/src/index.ts",
         "tsConfig": "libs/api/tsconfig.lib.json",
-        "assets": ["libs/api/*.md"],
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "assets": ["libs/api/*.md"]
       }
     },
     "dev": {

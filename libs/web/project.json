@@ -54,7 +54,7 @@
     "postbuild": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "npx cpy package.json ../../dist/libs/web/ --cwd=$(pwd)libs/web"
+        "command": "npx cpy package.json ../../dist/libs/web/ --cwd=libs/web"
       }
     },
     "lint": {

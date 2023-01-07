@@ -1,9 +1,8 @@
-import { PathDto } from '../paths';
+import { PathDto } from './PathDto';
 
 export interface CollectionDto {
   id?: string;
   name: string;
   basePath: string;
-  paths?: PathDto[];
-  fallbackProxy?: PathDto;
+  paths: PathDto[];
 }

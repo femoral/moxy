@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express';
-import { AddPathUseCase } from '@moxy-js/collections';
+import { AddPathUseCase } from '@moxy/collections';
 import * as pathDtoToPathMapper from '../mapper/path-dto.to.path.mapper';
 
 export const makeAddPathController =

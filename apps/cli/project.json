@@ -2,7 +2,6 @@
   "root": "apps/cli",
   "sourceRoot": "apps/cli/src",
   "projectType": "application",
-  "implicitDependencies": ["web"],
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
@@ -11,8 +10,7 @@
         "outputPath": "dist/apps/cli",
         "main": "apps/cli/src/index.ts",
         "tsConfig": "apps/cli/tsconfig.app.json",
-        "assets": ["apps/cli/*.md", "apps/cli/bin/*"],
-        "buildableProjectDepsInPackageJsonType": "dependencies"
+        "assets": ["apps/cli/*.md"]
       }
     },
     "serve": {
@@ -21,13 +19,7 @@
         "buildTarget": "cli:build",
         "runtimeArgs": ["-r", "tsconfig-paths/register"],
         "inspect": false
-      },
-      "dependsOn": [
-        {
-          "target": "build",
-          "projects": "dependencies"
-        }
-      ]
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

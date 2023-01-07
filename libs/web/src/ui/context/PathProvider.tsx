@@ -8,10 +8,11 @@ import { PathFormViewModel } from './model/PathFromViewModel';
 import { PathFormViewModelToPathMapper } from './mapper/PathFormViewModelToPathMapper';
 import { DeletePathUseCase } from '../../domain/DeletePathUseCase';
 import { PathViewModelToPathFromViewModelMapper } from './mapper/PathViewModelToPathFromViewModelMapper';
-import { CollectionViewModel } from './model/CollectionViewModel';
 
 export interface IPathContext {
   collectionId: string;
+  collectionName: string;
+  paths: PathViewModel[];
   setCollectionId: (collectionId: string) => void;
   isDrawerVisible: boolean;
   showDrawer: () => void;
@@ -19,8 +20,6 @@ export interface IPathContext {
   savePath: (path: any) => void;
   deletePath: (path: any) => void;
   editPath: (path: any) => void;
-  copyPath: (path: any) => void;
-  parentCollection?: CollectionViewModel;
   form?: FormInstance<PathViewModel>;
 }
 
@@ -43,8 +42,9 @@ export const createPathProvider =
     pathViewModelToFormMapper,
   }: IPathDependencies): React.FC =>
   ({ children }) => {
-    const [parentCollection, setParentCollection] = useState<CollectionViewModel>();
     const [collectionId, setCollectionId] = useState('');
+    const [collectionName, setCollectionName] = useState('');
+    const [paths, setPaths] = useState<PathViewModel[]>([]);
     const [isDrawerVisible, setDrawerVisibility] = useState(false);
     const [shouldRefresh, refresh] = useState<any>({});
 
@@ -56,13 +56,16 @@ export const createPathProvider =
           .execute(collectionId)
           .then((collection) => collectionMapper.map(collection))
           .then((collectionViewModel) => {
-            setParentCollection(collectionViewModel);
+            setCollectionName(collectionViewModel.name);
+            setPaths(collectionViewModel.paths);
           });
       }
     }, [collectionId, shouldRefresh]);
 
     const savePath = async (path: PathFormViewModel) => {
-      await addPathUseCase.execute(pathFormMapper.map({ ...path, collection: collectionId }));
+      await addPathUseCase.execute(
+        pathFormMapper.map({ ...path, collection: collectionId })
+      );
       hideDrawer();
       message.success('Path saved');
       refresh({});
@@ -79,11 +82,6 @@ export const createPathProvider =
       showDrawer();
     };
 
-    const copyPath = async (path: PathViewModel) => {
-      await navigator.clipboard.writeText(`${window.location.origin}/${parentCollection?.basePath}${path.path}`);
-      message.info('Path copied to the clipboard');
-    };
-
     const showDrawer = () => {
       setDrawerVisibility(true);
     };
@@ -97,12 +95,12 @@ export const createPathProvider =
       <PathContext.Provider
         value={{
           collectionId,
-          parentCollection,
+          paths,
+          collectionName,
           isDrawerVisible,
           setCollectionId,
           savePath,
           editPath,
-          copyPath,
           deletePath,
           showDrawer,
           hideDrawer,
@@ -118,10 +116,11 @@ export const PathContext = createContext<IPathContext>({
   savePath: () => {},
   deletePath: () => {},
   editPath: () => {},
-  copyPath: () => {},
   hideDrawer(): void {},
   showDrawer(): void {},
   isDrawerVisible: false,
   collectionId: '',
+  collectionName: '',
+  paths: [],
   setCollectionId: () => {},
 });

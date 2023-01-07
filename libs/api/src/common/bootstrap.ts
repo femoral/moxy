@@ -1,6 +1,5 @@
 import { createProxyServer } from 'http-proxy';
 import {
-  makeCollectionToCollectionModelMapper,
   makeCreateCollectionUseCase,
   makeDeleteCollectionUseCase,
   makeGetCollectionsUseCase,
@@ -11,8 +10,12 @@ import {
   makeJsonGetCollectionsRepository,
   makeJsonUpdateCollectionRepository,
   makeUpdateCollectionUseCase,
-} from '@moxy-js/collections';
-import { makeAddPathUseCase, makeDeletePathUseCase, makeUpdatePathUseCase } from '@moxy-js/collections';
+} from '@moxy/collections';
+import {
+  makeAddPathUseCase,
+  makeDeletePathUseCase,
+  makeUpdatePathUseCase,
+} from '@moxy/collections';
 import { makeAddCollectionController } from '../controller/collections/add-collection.controller';
 import { makeAddPathController } from '../controller/paths/add-path.controller';
 import { join } from 'path';
@@ -25,7 +28,6 @@ import { makeUpdatePathController } from '../controller/paths/update-path.contro
 import { Request, Response } from 'express';
 import { makeChangeMiddleware } from '../data/middleware/change.middleware';
 import { ServerResponse } from 'http';
-import { makePathToPathModelMapper } from '@moxy-js/paths';
 
 export type AppConfig = {
   childPort: string;
@@ -35,13 +37,10 @@ export type AppConfig = {
 
 const bootstrapApp = ({ childPort, configPath, onChange }: AppConfig): any => {
   const collectionsBasePath = join(configPath, 'collections');
-  const pathMapper = makePathToPathModelMapper({});
-  const collectionMapper = makeCollectionToCollectionModelMapper({ pathMapper });
 
   const createCollectionRepository = makeChangeMiddleware({
     changeFunction: makeJsonCreateCollectionRepository({
       collectionsBasePath,
-      collectionMapper,
     }),
     onChange,
     messagePrefix: 'created collection: ',
@@ -49,7 +48,6 @@ const bootstrapApp = ({ childPort, configPath, onChange }: AppConfig): any => {
 
   const getCollectionRepository = makeJsonGetCollectionRepository({
     collectionsBasePath,
-    collectionMapper,
   });
 
   const getCollectionsRepository = makeJsonGetCollectionsRepository({
@@ -60,7 +58,6 @@ const bootstrapApp = ({ childPort, configPath, onChange }: AppConfig): any => {
   const updateCollectionRepository = makeChangeMiddleware({
     changeFunction: makeJsonUpdateCollectionRepository({
       collectionsBasePath,
-      collectionMapper,
     }),
     onChange,
     messagePrefix: 'updated collection: ',

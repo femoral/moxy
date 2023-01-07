@@ -12,7 +12,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "files": ["src/ui/styles/styled.d.ts"],
+  "files": [],
   "include": [],
   "references": [
     {

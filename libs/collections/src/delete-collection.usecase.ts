@@ -1,4 +1,4 @@
-import { DeleteCollection } from './repository/collection.repository';
+import { DeleteCollection } from "./repository/collection.repository";
 
 export type DeleteCollectionUseCase = {
   execute: (name: string) => Promise<void>;

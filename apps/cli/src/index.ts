@@ -1,15 +1,23 @@
-import express from 'express';
-import open from 'open';
-import { bootstrap } from './config';
+import express from "express";
+import open from "open";
+import { bootstrap } from "./config";
 
 (async () => {
-  const { moxyApiRouter, childController, port, skipOpen, enableHealth, staticContentPath } = await bootstrap();
+  const {
+    moxyApiRouter,
+    childController,
+    port,
+    skipOpen,
+    enableHealth,
+    staticContentPath
+  } = await bootstrap();
 
   const app = express();
 
-  if (enableHealth) app.get('/health', (req, res) => res.send({ status: 'up' }));
-  app.get('/', (req, res) => res.redirect('/web'));
-  app.use('/web', express.static(staticContentPath));
+  if (enableHealth)
+    app.get("/health", (req, res) => res.send({ status: "up" }));
+  app.get("/", (req, res) => res.redirect("/web"));
+  app.use("/web", express.static(staticContentPath));
   app.use(moxyApiRouter);
 
   app.listen(port, async () => {
@@ -18,7 +26,7 @@ import { bootstrap } from './config';
     try {
       await childController.start();
     } catch (e) {
-      console.error('Error while starting child server', e);
+      console.error("Error while starting child server", e);
       process.exit(1);
     }
 
@@ -28,7 +36,10 @@ import { bootstrap } from './config';
       try {
         await open(`http://localhost:${port}`);
       } catch (e) {
-        console.error(`Error while opening browser at: http://localhost:${port}`, e);
+        console.error(
+          `Error while opening browser at: http://localhost:${port}`,
+          e
+        );
       }
   });
 })();

@@ -65,6 +65,8 @@ export const addPathSchema = {
   oneOf: [addMockSchema, addProxySchema],
 };
 
-export type AddPathRequest = JTDDataType<typeof addMockSchema> | JTDDataType<typeof addProxySchema>;
+export type AddPathRequest =
+  | JTDDataType<typeof addMockSchema>
+  | JTDDataType<typeof addProxySchema>;
 
 export const addPathValidator = ajv.compile<AddPathRequest>(addPathSchema);

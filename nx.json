@@ -1,5 +1,5 @@
 {
-  "npmScope": "moxy-js",
+  "npmScope": "moxy",
   "affected": {
     "defaultBase": "master"
   },
