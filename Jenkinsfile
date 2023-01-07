@@ -7,7 +7,7 @@ kind: Pod
 spec:
   containers:
   - name: nodejs
-    image: femorao/pnpm:16.14
+    image: femorao/pnpm:7
     env:
     - name: "npm_config_cache"
       value: /home/jenkins/.npm-cache
