@@ -1,5 +1,5 @@
 import express from 'express';
-import { makeChildController } from '@moxy/child';
+import { makeChildController } from '@moxy-js/child';
 import { makeMoxyApiRouter } from './controller';
 import { makeRestartMiddleware } from './controller/middleware/restart.middleware';
 import { join } from 'path';
@@ -30,4 +30,4 @@ export const startDev = () => {
     console.log(`API server started on port 3500`);
     await childController.start();
   });
-}
+};

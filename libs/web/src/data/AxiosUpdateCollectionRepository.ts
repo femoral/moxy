@@ -2,9 +2,7 @@ import { Collection } from '../domain/model/Collection';
 import { UpdateCollectionRepository } from '../domain/repository/UpdateCollectionRepository';
 import { AxiosInstance } from 'axios';
 
-export class AxiosUpdateCollectionRepository
-  implements UpdateCollectionRepository
-{
+export class AxiosUpdateCollectionRepository implements UpdateCollectionRepository {
   private readonly path = '/collections';
 
   constructor(private readonly axios: AxiosInstance) {}
@@ -16,6 +14,7 @@ export class AxiosUpdateCollectionRepository
       basePath: collection.basePath,
       name: collection.name,
       paths: collection.paths,
+      fallbackProxy: collection.fallbackProxy,
     };
   }
 }

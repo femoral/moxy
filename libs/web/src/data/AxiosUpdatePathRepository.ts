@@ -6,9 +6,6 @@ export class AxiosUpdatePathRepository implements UpdatePathRepository {
   constructor(private readonly axios: AxiosInstance) {}
 
   async update(path: Path): Promise<void> {
-    await this.axios.put(
-      `/collections/${path.collection}/paths/${path.id}`,
-      path
-    );
+    await this.axios.put(`/collections/${path.collection}/paths/${path.id}`, path);
   }
 }

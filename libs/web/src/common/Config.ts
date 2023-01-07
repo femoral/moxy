@@ -19,36 +19,30 @@ import { DeletePathUseCase } from '../domain/DeletePathUseCase';
 import { AxiosDeletePathRepository } from '../data/AxiosDeletePathRepository';
 import { PathViewModelToPathFromViewModelMapper } from '../ui/context/mapper/PathViewModelToPathFromViewModelMapper';
 import { AxiosUpdatePathRepository } from '../data/AxiosUpdatePathRepository';
+import { CollectionViewModelToCollectionMapper } from '../ui/context/mapper/CollectionViewModelToCollectionMapper';
 
 const axiosInstance: AxiosInstance = axios.create({ baseURL: '/api' });
 
-const getCollectionByIdUseCase = new GetCollectionByIdUseCase(
-  new AxiosGetCollectionByNameRepository(axiosInstance)
-);
+const getCollectionByIdUseCase = new GetCollectionByIdUseCase(new AxiosGetCollectionByNameRepository(axiosInstance));
 
-const getCollectionsUseCase = new GetCollectionsUseCase(
-  new AxiosGetCollectionsRepository(axiosInstance)
-);
+const getCollectionsUseCase = new GetCollectionsUseCase(new AxiosGetCollectionsRepository(axiosInstance));
 
 const saveCollectionUseCase = new SaveCollectionUseCase(
   new AxiosAddCollectionRepository(axiosInstance),
   new AxiosUpdateCollectionRepository(axiosInstance)
 );
 
-const deleteCollectionUseCase = new DeleteCollectionUseCase(
-  new AxiosDeleteCollectionRepository(axiosInstance)
-);
+const deleteCollectionUseCase = new DeleteCollectionUseCase(new AxiosDeleteCollectionRepository(axiosInstance));
 
-const collectionMapper = new CollectionToCollectionViewModelMapper();
+const collectionToCollectionViewModelMapper = new CollectionToCollectionViewModelMapper();
+const collectionViewModelToCollectionMapper = new CollectionViewModelToCollectionMapper();
 
 const addPathUseCase = new SavePathUseCase(
   new AxiosAddPathRepository(axiosInstance),
   new AxiosUpdatePathRepository(axiosInstance)
 );
 
-const deletePathUseCase = new DeletePathUseCase(
-  new AxiosDeletePathRepository(axiosInstance)
-);
+const deletePathUseCase = new DeletePathUseCase(new AxiosDeletePathRepository(axiosInstance));
 
 const pathFormMapper = new PathFormViewModelToPathMapper();
 
@@ -58,15 +52,16 @@ export const CollectionProvider = createCollectionProvider({
   getCollectionsUseCase,
   saveCollectionUseCase,
   deleteCollectionUseCase,
-  collectionMapper,
+  collectionToCollectionViewModelMapper,
   getCollectionByIdUseCase,
+  collectionViewModelToCollectionMapper,
 });
 
 export const PathProvider = createPathProvider({
   addPathUseCase,
   deletePathUseCase,
   getCollectionByIdUseCase,
-  collectionMapper,
+  collectionMapper: collectionToCollectionViewModelMapper,
   pathFormMapper,
   pathViewModelToFormMapper,
 });

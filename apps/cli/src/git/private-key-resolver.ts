@@ -9,10 +9,7 @@ const base64EncodedPrefix = 'encoded:';
 const resolvePrivateKey = (privateKey: any) => {
   if (privateKey ? privateKey.startsWith(base64EncodedPrefix) : undefined) {
     mkdir('-p', sshUserConfPath);
-    const keyBuffer = Buffer.from(
-      privateKey.substring(base64EncodedPrefix.length),
-      'base64'
-    );
+    const keyBuffer = Buffer.from(privateKey.substring(base64EncodedPrefix.length), 'base64');
     fs.writeFileSync(defaultKeyPath, keyBuffer, { mode: parseInt('0600', 8) });
 
     return defaultKeyPath;

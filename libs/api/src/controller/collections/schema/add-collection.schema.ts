@@ -27,10 +27,6 @@ export const addCollectionRequestSchema = {
   additionalProperties: true,
 };
 
-export type CreateCollectionRequest = JTDDataType<
-  typeof addCollectionRequestSchema
->;
+export type CreateCollectionRequest = JTDDataType<typeof addCollectionRequestSchema>;
 
-export const addCollectionValidator = ajv.compile<CreateCollectionRequest>(
-  addCollectionRequestSchema
-);
+export const addCollectionValidator = ajv.compile<CreateCollectionRequest>(addCollectionRequestSchema);

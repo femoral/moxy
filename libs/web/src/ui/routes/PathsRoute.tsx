@@ -1,20 +1,14 @@
-import { Button, Drawer, PageHeader } from 'antd';
+import { Button, Drawer } from 'antd';
 import React, { useContext, useEffect } from 'react';
 import PathEditor from '../container/PathEditor';
 import { useHistory } from 'react-router-dom';
 import { PathTables } from '../component/Table/PathTable';
 import { IPathContext, PathContext } from '../context/PathProvider';
+import { PageHeader } from '@ant-design/pro-components';
 
 const PathsRoute = ({ collectionId }: PathsRouteProps) => {
-  const {
-    collectionName,
-    setCollectionId,
-    paths,
-    showDrawer,
-    hideDrawer,
-    isDrawerVisible,
-    form,
-  } = useContext<IPathContext>(PathContext);
+  const { parentCollection, setCollectionId, showDrawer, hideDrawer, isDrawerVisible, form } =
+    useContext<IPathContext>(PathContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -27,14 +21,14 @@ const PathsRoute = ({ collectionId }: PathsRouteProps) => {
         className={'content-header'}
         onBack={() => history.goBack()}
         title={'Paths'}
-        subTitle={collectionName}
+        subTitle={parentCollection?.name}
         extra={[
           <Button type="primary" onClick={showDrawer} key={'add-button'}>
             Add Path
           </Button>,
         ]}
       />
-      <PathTables paths={paths} showDrawer={showDrawer} />
+      <PathTables paths={parentCollection?.paths || []} showDrawer={showDrawer} />
       <Drawer
         title="New Path"
         placement="right"
