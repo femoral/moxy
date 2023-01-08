@@ -18,7 +18,7 @@ const collectionsRouter = ({
   deleteCollection: RequestHandler;
   updateCollection: RequestHandler;
   restartMiddleware: RequestHandler;
-}) => {
+}): Router => {
   const router = Router();
 
   router.get('/', catchErrors(getCollections));
