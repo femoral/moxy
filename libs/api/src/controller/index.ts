@@ -14,7 +14,7 @@ export const makeMoxyApiRouter = ({
   configPath: string;
   restartMiddleware: RequestHandler;
   onChange: (message: string) => void;
-}) => {
+}): Router => {
   const {
     addCollection,
     deleteCollection,

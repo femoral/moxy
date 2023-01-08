@@ -12,7 +12,7 @@ const pathsRouter = ({
   addPath: RequestHandler;
   updatePath: RequestHandler;
   deletePath: RequestHandler;
-}) => {
+}): Router => {
   const router = Router();
   router.post('/:collectionId/paths', schemaMiddleware(addPathValidator), catchErrors(addPath));
   router.put('/:collectionId/paths/:id', schemaMiddleware(updatePathValidator), catchErrors(updatePath));
