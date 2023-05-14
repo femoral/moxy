@@ -1,5 +1,11 @@
 {
-  "name": "@moxy/cli",
+  "name": "@moxy-js/cli",
   "version": "0.0.1",
-  "type": "commonjs"
+  "type": "commonjs",
+  "bin": {
+    "moxy": "bin/moxy-js"
+  },
+  "dependencies": {
+    "@moxy-js/web": "moxy-js-version"
+  }
 }

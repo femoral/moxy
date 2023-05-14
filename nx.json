@@ -1,5 +1,5 @@
 {
-  "npmScope": "moxy",
+  "npmScope": "moxy-js",
   "affected": {
     "defaultBase": "master"
   },
@@ -45,5 +45,5 @@
       }
     }
   },
-  "defaultProject": "web"
+  "defaultProject": "cli"
 }

@@ -1,5 +1,5 @@
-import { Collection } from "./collection";
-import { UpdateCollection } from "./repository/collection.repository";
+import { Collection } from './collection';
+import { UpdateCollection } from './repository/collection.repository';
 
 export type UpdateCollectionUseCase = {
   execute: (collection: Collection) => Promise<void>;

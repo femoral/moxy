@@ -1,4 +1,4 @@
-import {ChildProcess, fork} from "child_process";
+import { ChildProcess, fork } from 'child_process';
 
 let child: ChildProcess | undefined;
 let restartTimeout: NodeJS.Timeout;
@@ -21,11 +21,8 @@ export const makeChildController = ({
 }: ChildControllerConfig): ChildController => {
   const start = () => {
     return new Promise<void>((resolve) => {
-      child = fork(require.resolve(`./app`), [
-        childPort,
-        configPath,
-      ]);
-      child.once("message", (message) => {
+      child = fork(require.resolve(`./app`), [childPort, configPath]);
+      child.once('message', (message) => {
         console.log(message);
         resolve();
       });
@@ -42,7 +39,7 @@ export const makeChildController = ({
 
   const stop = () => {
     return new Promise<void>((resolve) => {
-      child?.once("exit", () => {
+      child?.once('exit', () => {
         child = undefined;
         resolve();
       });

@@ -1,22 +1,28 @@
-import express, {NextFunction, Request, Response} from "express";
-import cors from "cors";
+import express, { NextFunction, Request, Response } from 'express';
+import cors from 'cors';
 import {
+  makeCollectionToCollectionModelMapper,
   makeGetCollectionsUseCase,
   makeJsonGetCollectionRepository,
-  makeJsonGetCollectionsRepository
-} from "@moxy/collections";
-import {join} from "path";
+  makeJsonGetCollectionsRepository,
+} from '@moxy-js/collections';
+import { join } from 'path';
+import { proxyServer } from './proxy';
+import { makePathToPathModelMapper } from '@moxy-js/paths';
 
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
 const [, , port, configPath] = process.argv;
 
-const collectionsBasePath = join(configPath, "collections");
+const collectionsBasePath = join(configPath, 'collections');
+
+const pathMapper = makePathToPathModelMapper({ proxyServer });
+const collectionMapper = makeCollectionToCollectionModelMapper({ pathMapper });
 
 const getCollectionUseCase = makeGetCollectionsUseCase({
   getCollections: makeJsonGetCollectionsRepository({
     collectionsBasePath,
-    getCollection: makeJsonGetCollectionRepository({ collectionsBasePath }),
+    getCollection: makeJsonGetCollectionRepository({ collectionsBasePath, collectionMapper }),
   }),
 });
 
@@ -31,22 +37,21 @@ const getCollectionUseCase = makeGetCollectionsUseCase({
 
   (await getCollectionUseCase.execute()).forEach((collection) => {
     try {
+      const router = express.Router();
+
       collection.paths.forEach((path) => {
         try {
-          app[path.method](
-            `/${collection.basePath}${path.path}`,
-            path.handler.bind(path)
-          );
+          router[path.method](`${path.path}`, path.handler.bind(path));
         } catch (e) {
-          console.error(
-            `failed to load path: ${path.id} on collection: ${collection.name}`
-          );
+          console.error(`failed to load path: ${path.id} on collection: ${collection.name}`);
         }
       });
+
+      if (collection.fallbackProxy) router.all(`/*`, collection.fallbackProxy.handler.bind(collection.fallbackProxy));
+
+      app.use(`/${collection.basePath}`, router);
     } catch (e) {
-      console.error(
-        `failed to load collection: ${collection.id} - ${collection.name}`
-      );
+      console.error(`failed to load collection: ${collection.id} - ${collection.name}`);
     }
   });
 

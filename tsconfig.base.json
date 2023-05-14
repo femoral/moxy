@@ -7,7 +7,6 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
     "lib": ["es2017", "dom"],
@@ -16,9 +15,12 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@moxy/child": ["libs/child/src"],
-      "@moxy/collections": ["libs/collections/src"],
-      "@moxy/paths": ["libs/paths/src"]
+      "@moxy-js/api": ["libs/api/src"],
+      "@moxy-js/child": ["libs/child/src"],
+      "@moxy-js/collections": ["libs/collections/src"],
+      "@moxy-js/dto": ["libs/dto/src/index.ts"],
+      "@moxy-js/paths": ["libs/paths/src"],
+      "@moxy-js/web": ["libs/web"]
     }
   },
   "exclude": ["node_modules", "tmp"]

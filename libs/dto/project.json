@@ -1,0 +1,32 @@
+{
+  "root": "libs/dto",
+  "sourceRoot": "libs/dto/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/dto",
+        "main": "libs/dto/src/index.ts",
+        "tsConfig": "libs/dto/tsconfig.lib.json",
+        "assets": ["libs/dto/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/dto/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dto"],
+      "options": {
+        "jestConfig": "libs/dto/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
