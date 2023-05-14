@@ -1,5 +1,5 @@
-import { Path } from "@moxy/paths";
-import { Collection } from "./collection";
+import { Path } from '@moxy-js/paths';
+import { Collection } from './collection';
 
 export type AddPathUseCase = { execute: (path: Path) => Promise<string> };
 
@@ -8,9 +8,7 @@ export const makeAddPathUseCase = (collectionRepository: {
   updateCollection: (collection: Collection) => Promise<void>;
 }): AddPathUseCase => {
   const execute = async (path: Path): Promise<string> => {
-    const collection = await collectionRepository.getCollection(
-      path.collection
-    );
+    const collection = await collectionRepository.getCollection(path.collection);
 
     collection.addPath(path);
 

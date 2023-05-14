@@ -10,7 +10,8 @@
         "outputPath": "dist/libs/paths",
         "main": "libs/paths/src/index.ts",
         "tsConfig": "libs/paths/tsconfig.lib.json",
-        "assets": ["libs/paths/*.md"]
+        "assets": ["libs/paths/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "lint": {

@@ -1,5 +1,10 @@
 {
-  "name": "@moxy/collections",
+  "name": "@moxy-js/collections",
   "version": "0.0.1",
-  "type": "commonjs"
+  "type": "commonjs",
+  "license": "MIT", "homepage": "https://github.com/femoral/moxy-js#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/femoral/moxy.git"
+  }
 }
