@@ -12,7 +12,7 @@ const {
   debounce,
   port,
   skipOpen,
-  git: { pushInterval, privateKey, remote, authorization, proxy },
+  git: { pushInterval, privateKey, remote, config },
   enableHealth,
 }: any = args;
 
@@ -26,8 +26,7 @@ export const bootstrap = async () => {
         collectionsPath,
         remote,
         key: privateKey,
-        authorization,
-        proxy,
+        config,
       })
     : {
         commit: () => {
