@@ -46,22 +46,14 @@ export default yargs(hideBin(process.argv))
     type: 'string',
     description: "Path to private key or base64 encoded private key (with 'encoded:' prefix)",
   })
-  .option('git.authorization', {
-    type: 'string',
-    description: 'Authorization header value for git remote',
-  })
-  .option('git.proxy', {
-    type: 'string',
-    description: 'Proxy server for git remote',
-  })
   .option('git.push-interval', {
     type: 'number',
     description: 'Interval after which changes will be pushed to the remote repository (in minutes)',
     default: 60,
   })
   .check((argv: any) => {
-    if (argv.git.remote && !argv.git.privateKey && !argv.git.authorization) {
-      throw new Error('Private key or authorization header is required for git remote');
+    if (argv.git.remote && !argv.git.privateKey && !argv.git.config) {
+      throw new Error('Private key or authorization header provided via --git.private-key or --git.config is required');
     }
 
     if (argv.git.interval < 1) {
