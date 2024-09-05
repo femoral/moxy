@@ -6,6 +6,23 @@
     "moxy": "bin/moxy-js"
   },
   "dependencies": {
-    "@moxy-js/web": "moxy-js-version"
+    "@moxy-js/web": "moxy-js-version",
+    "styled-components": "^5.3.3",
+    "@moxy-js/dto": "moxy-js-version",
+    "yargs": "^16.2.0",
+    "@moxy-js/api": "moxy-js-version",
+    "express": "4.17.2",
+    "@moxy-js/child": "moxy-js-version",
+    "cors": "^2.8.5",
+    "@moxy-js/collections": "moxy-js-version",
+    "@moxy-js/paths": "moxy-js-version",
+    "uuid": "^8.3.2",
+    "graceful-fs": "^4.2.6",
+    "rimraf": "^3.0.2",
+    "http-proxy": "^1.18.1",
+    "ajv": "^7.2.1",
+    "shelljs": "^0.8.5",
+    "simple-git": "^3.26.0",
+    "open": "^8.0.4"
   }
 }

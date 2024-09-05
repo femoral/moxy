@@ -1,4 +1,4 @@
-import simpleGit from 'simple-git';
+import simpleGit, { SimpleGit } from 'simple-git';
 import fs from 'fs';
 import path from 'path';
 import { resolvePrivateKey } from './private-key-resolver';
@@ -10,15 +10,45 @@ const gitignore = `
 .DS_Store
 `;
 
-const makeUploadChanges = async ({ remote, key, collectionsPath }: any) => {
-  const sshCommand = `ssh -i ${resolvePrivateKey(
-    key
-  )} -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -F /dev/null`;
+const makeUploadChanges = async ({
+  remote,
+  key,
+  authorization,
+  collectionsPath,
+  proxy,
+}: {
+  remote: string;
+  key?: string;
+  authorization?: string;
+  collectionsPath: string;
+  proxy?: string;
+}) => {
+  let git: SimpleGit;
+  const baseConfig = ['user.name=moxyd', 'user.email=moxyd@moxy-jsd.org', ...(proxy ? [`http.proxy=${proxy}`] : [])];
 
-  const git = simpleGit({
-    baseDir: collectionsPath,
-    maxConcurrentProcesses: 1,
-  }).env('GIT_SSH_COMMAND', sshCommand);
+  if (key) {
+    const sshCommand = `ssh -i ${resolvePrivateKey(
+      key
+    )} -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -F /dev/null`;
+
+    git = simpleGit({
+      baseDir: collectionsPath,
+      maxConcurrentProcesses: 1,
+      config: [...baseConfig, 'core.sshCommand=' + sshCommand],
+    }).env('GIT_SSH_COMMAND', sshCommand);
+  } else if (authorization) {
+    git = simpleGit({
+      baseDir: collectionsPath,
+      maxConcurrentProcesses: 1,
+      config: [...baseConfig, `http.extraHeader=Authorization: ${authorization}`],
+    });
+  } else {
+    git = simpleGit({
+      baseDir: collectionsPath,
+      maxConcurrentProcesses: 1,
+      config: baseConfig,
+    });
+  }
 
   const branchExistOnRemote = async () => {
     const branchSummary = await git.branch(['-r']);
@@ -31,14 +61,6 @@ const makeUploadChanges = async ({ remote, key, collectionsPath }: any) => {
       await git.init();
       fs.writeFileSync(path.join(collectionsPath, '.gitignore'), gitignore);
     }
-  };
-
-  const addGitConfig = async () => {
-    console.log(`git: writing local config`);
-    await git
-      .addConfig('user.name', 'moxyd')
-      .addConfig('user.email', 'moxyd@moxy-jsd.org')
-      .addConfig('core.sshCommand', sshCommand);
   };
 
   const initRemote = async () => {
@@ -74,7 +96,6 @@ const makeUploadChanges = async ({ remote, key, collectionsPath }: any) => {
   };
 
   await initLocalRepository();
-  await addGitConfig();
   await initRemote();
   await push('application startup' + new Date().toUTCString());
 
