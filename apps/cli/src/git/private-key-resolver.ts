@@ -1,9 +1,11 @@
 import fs from 'fs';
 import { mkdir } from 'shelljs';
 import { homedir } from 'os';
+import { join } from 'path';
 
-const sshUserConfPath = `${homedir()}/.ssh`;
-const defaultKeyPath = `${sshUserConfPath}moxy_id_rsa`;
+const dir = homedir().replace(/\//g, '').trim().length > 0 ? homedir() : process.cwd();
+const sshUserConfPath = join(dir, '.ssh');
+const defaultKeyPath = join(sshUserConfPath, 'moxy_id_rsa');
 const base64EncodedPrefix = 'encoded:';
 
 const resolvePrivateKey = (privateKey: any) => {

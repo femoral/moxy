@@ -8,7 +8,8 @@ import { homedir } from 'os';
 export const startDev = () => {
   const app = express();
 
-  const configPath = join(homedir(), '.moxy');
+  const dir = homedir().replace(/\//g, '').trim().length > 0 ? homedir() : process.cwd();
+  const configPath = join(dir, '.moxy');
   const childPort = '3501';
 
   const childController = makeChildController({
