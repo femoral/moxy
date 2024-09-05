@@ -34,7 +34,6 @@ const CollectionEditor = ({ form }: ICollectionEditorProps) => {
         label="Name"
         name={'name'}
         initialValue={selectedCollection?.name || ''}
-        requiredMark={'optional'}
         rules={[{ required: true, message: 'Please input collection name' }]}
       >
         <Input />
@@ -42,7 +41,6 @@ const CollectionEditor = ({ form }: ICollectionEditorProps) => {
       <Form.Item
         label="Base Path"
         name={'basePath'}
-        requiredMark={'optional'}
         rules={[
           { required: true, message: 'Please input base path' },
           {
