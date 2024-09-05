@@ -10,7 +10,6 @@ const MockEditor = () => {
       <Form.Item
         label="Content Type"
         name={'contentType'}
-        requiredMark={'optional'}
         rules={[
           { required: true, message: 'Please input content type' },
           {
