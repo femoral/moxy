@@ -13,18 +13,16 @@ const gitignore = `
 const makeUploadChanges = async ({
   remote,
   key,
-  authorization,
   collectionsPath,
-  proxy,
+  config = [],
 }: {
   remote: string;
   key?: string;
-  authorization?: string;
   collectionsPath: string;
-  proxy?: string;
+  config?: string[];
 }) => {
   let git: SimpleGit;
-  const baseConfig = ['user.name=moxyd', 'user.email=moxyd@moxy-jsd.org', ...(proxy ? [`http.proxy=${proxy}`] : [])];
+  const baseConfig = ['user.name=moxyd', 'user.email=moxyd@moxy-jsd.org', ...config];
 
   if (key) {
     const sshCommand = `ssh -i ${resolvePrivateKey(
@@ -34,14 +32,8 @@ const makeUploadChanges = async ({
     git = simpleGit({
       baseDir: collectionsPath,
       maxConcurrentProcesses: 1,
-      config: [...baseConfig, 'core.sshCommand=' + sshCommand],
+      config: [`core.sshCommand=${sshCommand}`, ...baseConfig],
     }).env('GIT_SSH_COMMAND', sshCommand);
-  } else if (authorization) {
-    git = simpleGit({
-      baseDir: collectionsPath,
-      maxConcurrentProcesses: 1,
-      config: [...baseConfig, `http.extraHeader=Authorization: ${authorization}`],
-    });
   } else {
     git = simpleGit({
       baseDir: collectionsPath,
