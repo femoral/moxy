@@ -5,6 +5,8 @@ export const proxyServer = createProxyServer({
   changeOrigin: true,
   secure: false,
   ignorePath: true,
+  timeout: 60000,
+  proxyTimeout: 60000,
 });
 
 proxyServer.on('error', (error, req, res) => {
