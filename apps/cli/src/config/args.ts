@@ -52,8 +52,8 @@ export default yargs(hideBin(process.argv))
     default: 60,
   })
   .check((argv: any) => {
-    if (argv.git.remote && !argv.git.privateKey) {
-      throw new Error('In order to use a git repository --git.private-key option should be provided');
+    if (argv.git.remote && !argv.git.privateKey && !argv.git.config) {
+      throw new Error('Private key or authorization header provided via --git.private-key or --git.config is required');
     }
 
     if (argv.git.interval < 1) {

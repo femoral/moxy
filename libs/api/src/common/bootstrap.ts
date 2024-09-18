@@ -1,8 +1,10 @@
 import { createProxyServer } from 'http-proxy';
 import {
+  makeAddPathUseCase,
   makeCollectionToCollectionModelMapper,
   makeCreateCollectionUseCase,
   makeDeleteCollectionUseCase,
+  makeDeletePathUseCase,
   makeGetCollectionsUseCase,
   makeGetCollectionUseCase,
   makeJsonCreateCollectionRepository,
@@ -11,8 +13,8 @@ import {
   makeJsonGetCollectionsRepository,
   makeJsonUpdateCollectionRepository,
   makeUpdateCollectionUseCase,
+  makeUpdatePathUseCase,
 } from '@moxy-js/collections';
-import { makeAddPathUseCase, makeDeletePathUseCase, makeUpdatePathUseCase } from '@moxy-js/collections';
 import { makeAddCollectionController } from '../controller/collections/add-collection.controller';
 import { makeAddPathController } from '../controller/paths/add-path.controller';
 import { join } from 'path';
@@ -77,6 +79,8 @@ const bootstrapApp = ({ childPort, configPath, onChange }: AppConfig): any => {
 
   const proxyServer = createProxyServer({
     target: `http://localhost:${childPort}`,
+    timeout: 60000,
+    proxyTimeout: 60000,
   });
 
   proxyServer.on('error', (error, req, res) => {
