@@ -7,7 +7,7 @@ kind: Pod
 spec:
   containers:
   - name: nodejs
-    image: femorao/pnpm:7
+    image: femorao/pnpm:8-node-18
     env:
     - name: "npm_config_cache"
       value: /home/jenkins/.npm-cache
@@ -74,7 +74,9 @@ spec:
                 sh "find ${WORKSPACE}/apps ${WORKSPACE}/libs -name package.json | sed s/package\\.json//g | while read package; do cd \$package; npm version --no-git-tag-version \$(cat ${WORKSPACE}/version); done"
                 sh "pnpm build"
                 sh "cp libs/web/package.json dist/libs/web"
+                sh "cat dist/apps/cli/package.json"
                 sh "sed -i s/moxy-js-version/\$(cat ${WORKSPACE}/version)/g dist/apps/cli/package.json"
+                sh "cat dist/apps/cli/package.json"
                 sh "ls -1a dist/*/*/package.json | sed s/package\\.json//g | while read package; do cp LICENSE \$package; done"
             }
           }

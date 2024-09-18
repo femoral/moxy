@@ -12,7 +12,7 @@ const {
   debounce,
   port,
   skipOpen,
-  git: { pushInterval, privateKey, remote },
+  git: { pushInterval, privateKey, remote, config },
   enableHealth,
 }: any = args;
 
@@ -24,8 +24,9 @@ export const bootstrap = async () => {
   const { commit, push } = remote
     ? await makeUploadChanges({
         collectionsPath,
-        remote: remote,
+        remote,
         key: privateKey,
+        config,
       })
     : {
         commit: () => {
